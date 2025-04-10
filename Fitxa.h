@@ -31,7 +31,6 @@ public:
 	int getPosHorit() { return m_posHorit; }
 	TipusFitxa getTipus() { return m_tipus; }
 	ColorFitxa getColor() { return m_color; }
-	Posicio getPosicio() { return m_posicioActual; }
 
 	void setPosFitxa(int vert, int horit) { m_posVert = vert; m_posHorit = horit; }
 	void setTipus(TipusFitxa tipus) { m_tipus = tipus; }
