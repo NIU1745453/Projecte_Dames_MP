@@ -2,6 +2,7 @@
 #include <string>
 #include "Posicio.h"
 
+
 class Moviment
 {
 public:
@@ -18,4 +19,6 @@ public:
 
 private:
 	string m_moviment;
+	int m_horitzontal;
+	int m_vertical;
 };

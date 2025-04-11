@@ -36,7 +36,6 @@ public:
 	void setPosFitxa(int vert, int horit) { m_posVert = vert; m_posHorit = horit; }
 	void setTipus(TipusFitxa tipus) { m_tipus = tipus; }
 	void setColor(ColorFitxa color) { m_color = color; }
-	void setPosicio(); //encara no se que colocar aqui com a paramentres
 
 	Moviment movimentsValids();//encara no se que colocar aqui com a paramentres
 
