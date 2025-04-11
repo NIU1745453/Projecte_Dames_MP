@@ -23,15 +23,15 @@ void Tauler::inicialitza(const string& nomFitxer)
 		int fila;
 		int columna;
 
-		while (getline(fitxer, line))
+		while (getline(fitxer, line)) //el fitxer.eof dona sempre bucle inf. per tant hem usat una variable
 		{
 			if (line != "")
 			{
 				tipusFitxa = line[0];
-				posFitxa = line.substr(2, 2);
+				posFitxa = line.substr(2, 2); //trobada de cplusplus.com (serveis per agafar x characters d'un string apartir de y pos)
 				pos.fromString(posFitxa);
-				int fila = pos.getFila();
-				int columna = pos.getColumna();
+				fila = pos.getFila();
+				columna = pos.getColumna();
 
 				//identifiquem el tipus de la fitxa
 				if (tipusFitxa == 'D' || tipusFitxa == 'R')

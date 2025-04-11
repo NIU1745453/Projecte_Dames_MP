@@ -25,4 +25,4 @@ private:
 
 //void escriuTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);
 
-#endif // TAULER_H
+#endif  TAULER_H
