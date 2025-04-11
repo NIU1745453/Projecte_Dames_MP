@@ -55,7 +55,7 @@ void Tauler::actualitzaMovimentsValids()
 {
 
 }
-
+x
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
 
