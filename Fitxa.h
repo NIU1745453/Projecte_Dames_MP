@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include "Moviment.h"
+#include "Tauler.h"
 
 using namespace std;
 

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
-
-const int MAX_MOV = 2; // indica les coordenades del moviment
+#include "Posicio.h"
 
 class Moviment
 {
@@ -15,7 +14,8 @@ public:
 													// en cas de que es pugui fer el mov, l'haura de guardar per
 													//tal de poderlo tenir en l'array moviments possibles
 
+	string camiViable(Posicio& posActual);
 
 private:
-	int m_moviment[MAX_MOV];
+	string m_moviment;
 };
