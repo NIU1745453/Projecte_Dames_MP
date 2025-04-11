@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int MAX_MOVIMENTS = 10;//pot ser canviat
+const int MAX_MOVIMENTS = 12;//pot ser canviat
 
 typedef enum
 {

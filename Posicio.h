@@ -9,7 +9,7 @@ const int N_COLUMNES = 8;
 class Posicio
 {
 public:
-	Posicio(const string& posicio);
+    Posicio(const string& posicio) : m_posicio(posicio) {}
 	bool operator==(const Posicio& posicio) const;
     Posicio() { m_fila = 0; m_columna = 0; }
     Posicio(int fila, int columna) { m_fila = fila; m_columna = columna; }
@@ -19,6 +19,7 @@ public:
     void fromString(const string& pos);
 private:
     int m_fila, m_columna;
+    string m_posicio;
 };
 
 ifstream& operator>>(ifstream& fitxer, Posicio& posicio);

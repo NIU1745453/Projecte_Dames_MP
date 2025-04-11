@@ -1,5 +1,10 @@
 #include "Posicio.h"
 
+bool Posicio::operator==(const Posicio& posicio) const
+{
+
+}
+
 string Posicio::toString() const
 {
     string pos = "a1";
