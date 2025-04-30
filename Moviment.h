@@ -2,23 +2,24 @@
 #include <string>
 #include "Posicio.h"
 
+const int MAX_PECES = 24;
 
 class Moviment
 {
 public:
-	Moviment() : m_moviment(""), m_horitzontal(0456), m_vertical(0){}
-	Moviment(string mov) : m_moviment(mov) {}
-	void getMoviment() { return m_moviments; }
-	string setMoviment(string mov) { m_moviment = mov; }
+	Moviment() { m_posicio = Posicio(); }
+	Moviment(string mov) { m_posicio = Posicio(mov); }
 
-	bool compatible(int vertical, int horitzontal); //mirara si el moviment que mira es pot fer o no,
+	string getMoviment() const { return m_posicio.getPosicio(); }
+
+	void setMoviment(string mov) { m_posicio.setPosicio(mov); }
+
+	bool compatible(Posicio posicio); //mirara si el moviment que mira es pot fer o no,
 													// en cas de que es pugui fer el mov, l'haura de guardar per
 													//tal de poderlo tenir en l'array moviments possibles
 
 	string camiViable(Posicio& posActual);
 
 private:
-	string m_moviment;
-	int m_horitzontal;
-	int m_vertical;
+	Posicio m_posicio;//tiene variable fila, columna y string
 };

@@ -2,7 +2,12 @@
 
 bool Posicio::operator==(const Posicio& posicio) const
 {
-
+    bool iguals = false;
+    if (posicio.getFila() == m_fila && posicio.getColumna() == m_columna)
+    {
+        iguals = true;
+    }
+    return iguals;
 }
 
 string Posicio::toString() const

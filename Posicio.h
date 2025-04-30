@@ -10,13 +10,20 @@ class Posicio
 {
 public:
     Posicio(const string& posicio) : m_posicio(posicio) {}
-	bool operator==(const Posicio& posicio) const;
     Posicio() { m_fila = 0; m_columna = 0; }
-    Posicio(int fila, int columna) { m_fila = fila; m_columna = columna; }
+
+	bool operator==(const Posicio& posicio) const;
+
+    void setPosicio(int fila, int columna) { m_fila = fila; m_columna = columna; }
+    void setPosicio(string posicio) { m_posicio = posicio; }
+
     int getFila() const { return m_fila; }
     int getColumna() const { return m_columna; }
+    string getPosicio() const { return m_posicio; }
+
     string toString() const;
     void fromString(const string& pos);
+
 private:
     int m_fila, m_columna;
     string m_posicio;

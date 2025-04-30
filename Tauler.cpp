@@ -53,9 +53,13 @@ void Tauler::inicialitza(const string& nomFitxer)
 
 void Tauler::actualitzaMovimentsValids()
 {
+	int i;
+	for (i = 0; i < 64; i++)
+	{
 
+	}
 }
-x
+
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
 
@@ -65,13 +69,9 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 {
 
 }
-
-string Tauler::toString() const
+string ToString() const
 {
-	string pos = "a1";
-	pos[0] = 'a' + m_columna;
-	pos[1] = '1' + (N_FILES - 1) - m_fila;
-	return pos;
+
 }
 
 //void EscriuTauler
@@ -103,3 +103,15 @@ string Tauler::toString() const
 //		fitxer.close();
 //	}
 //}
+
+int main()
+{
+	bool joc = true;
+	int guanyador;
+
+	
+	while (joc)
+	{
+
+	}
+}
