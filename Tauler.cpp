@@ -70,15 +70,18 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 
 	while ((newPos.getColumna() <= 7 && newPos.getColumna() >= 0) && (newPos.getFila() <= 7 && newPos.getFila() >= 0))
 	{
-		for (int i = (newPos.getFila() - 1); i < N_FILES; i += 2)
+		for (int i = (newPos.getFila()); i < N_FILES; i += 2)
 		{
-			for (int j = (newPos.getColumna() - 1); i < N_COLUMNES; i += 2)
+			for (int j = (newPos.getColumna()); i < N_COLUMNES; i += 2)
 			{
-				if (m_tauler[i][j].getTipus() == TIPUS_EMPTY)
+				if (i < 8 && i> 0 && j < 8 && j>0)
 				{
-					newPos.setPosicio(i, j);
-					if(!posicioExistent(newPos,nPosicions,posicionsPossibles))
-						posicionsPossibles[nPosicions++] = newPos;
+					if (m_tauler[i][j].getTipus() == TIPUS_EMPTY)
+					{
+						newPos.setPosicio(i, j);
+						if (!posicioExistent(newPos, nPosicions, posicionsPossibles))
+							posicionsPossibles[nPosicions++] = newPos;
+					}
 				}
 			}
 		}
