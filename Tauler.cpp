@@ -51,27 +51,93 @@ void Tauler::inicialitza(const string& nomFitxer)
 	}
 }
 
-void Tauler::actualitzaMovimentsValids()
-{
-	int i;
-	for (i = 0; i < 64; i++)
-	{
-
-	}
-}
+//void Tauler::actualitzaMovimentsValids()
+//{
+//	int i;
+//	for (i = 0; i < 64; i++)
+//	{
+//
+//	}
+//}
 
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
+	bool moviment = true;
+	nPosicions = 0;
+	int pos = 0;
+	Posicio newPos = origen;
 
+
+	while ((newPos.getColumna() <= 7 && newPos.getColumna() >= 0) && (newPos.getFila() <= 7 && newPos.getFila() >= 0))
+	{
+		for (int i = (newPos.getFila() - 1); i < N_FILES; i += 2)
+		{
+			for (int j = (newPos.getColumna() - 1); i < N_COLUMNES; i += 2)
+			{
+				if (m_tauler[i][j].getTipus() == TIPUS_EMPTY)
+				{
+					newPos.setPosicio(i, j);
+					if(!posicioExistent(newPos,nPosicions,posicionsPossibles))
+						posicionsPossibles[nPosicions++] = newPos;
+				}
+			}
+		}
+		pos++;
+		newPos = posicionsPossibles[pos];
+	}
+	setNPosicions(nPosicions);
+}
+
+bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
+{
+	bool trobat = false;
+	for (int i = 0; i < nPosicions; i++)
+	{
+		if (posicionsPossibles[i] == origen)
+		{
+			trobat = true;
+		}
+	}
+	return trobat;
 }
 
 bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 {
 
 }
-string ToString() const
-{
 
+void Tauler::ToString(const string& nomFitxer, const Posicio& posicio)
+{
+	ofstream fitxer(nomFitxer);
+	int fil = N_FILES;
+
+	for (int i = 0; i > N_COLUMNES; i--)
+	{
+		for(int j = 0; j< N_COLUMNES; j++)
+		{
+			fitxer << fil << ":" << ' ';
+			if (m_tauler[i][j].getTipus() == TIPUS_DAMA)
+			{
+				if (m_tauler[i][j].getColor() == COLOR_BLANC)
+					fitxer << 'D' << ' ';
+				else
+					fitxer << 'R' << ' ';
+			} 
+			else if (m_tauler[i][j].getTipus() == TIPUS_NORMAL)
+			{
+				if (m_tauler[i][j].getColor() == COLOR_BLANC)
+					fitxer << 'O' << ' ';
+				else
+					fitxer << 'X' << ' ';
+			}
+			else
+				fitxer << "_" << ' ';
+
+		}
+	}
+	
+
+	fitxer.close();
 }
 
 //void EscriuTauler
@@ -104,14 +170,14 @@ string ToString() const
 //	}
 //}
 
-int main()
-{
-	bool joc = true;
-	int guanyador;
-
-	
-	while (joc)
-	{
-
-	}
-}
+//int main()
+//{
+//	bool joc = true;
+//	int guanyador;
+//
+//	
+//	while (joc)
+//	{
+//
+//	}
+//}
