@@ -272,10 +272,10 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 	bool fet = false;//si se puede hacer el movimiento
 	bool penalitzar = false;//si hay que bufarla
 
-	int muerta1;
+	int muerta1=0;
 	int distancia;
 
-	int muerta2;
+	int muerta2=0;
 
 	int i = 0;
 	int x = 0;
@@ -557,7 +557,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 		jugador (eliminar la peça del tauler) , seguint els criteris que s’han explicat a les regles del joc.
 	*/
 
-void Tauler::toString(const string& nomFitxer, const Posicio& posicio)
+string Tauler::toString()
 {
 	/*
 	ofstream fitxer(nomFitxer);
@@ -590,6 +590,7 @@ void Tauler::toString(const string& nomFitxer, const Posicio& posicio)
 
 	fitxer.close();
 	*/
+	string tauler = "hola";
 	int fil = N_FILES;
 	for (int i = 0; i > N_COLUMNES; i++)
 	{
@@ -616,6 +617,7 @@ void Tauler::toString(const string& nomFitxer, const Posicio& posicio)
 		}
 		fil--;
 	}
+	return tauler;
 }
 
 //void EscriuTauler

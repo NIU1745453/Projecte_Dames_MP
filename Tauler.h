@@ -48,7 +48,7 @@ A part de moure la peça de la posició origen a la posició destí ha de fer el seg
 
 
 
-	void toString(const string& nomFitxer, const Posicio& posicio);
+	string toString();
 	/*Genera un string amb l’estat actual del tauler de joc en el format que especifiquem a continuació
 	8: _ X _ D _ _ _ X 
 	7: _ _ _ _ _ _ X _

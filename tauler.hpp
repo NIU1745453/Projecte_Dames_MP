@@ -48,7 +48,7 @@ Posicions possibles de la posició ‘b2’:[‘a3’,‘d4’,‘f6’,‘d8’,‘h8’]*/
 
 
 
-	void toString(const string& nomFitxer, const Posicio& posicio);
+	string toString();
 	/*Genera un string amb l’estat actual del tauler de joc en el format que especifiquem a continuació
 	8: _ X _ D _ _ _ X
 	7: _ _ _ _ _ _ X _

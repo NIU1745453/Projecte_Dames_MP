@@ -17,13 +17,16 @@ const int N_COLUMNES = 8;
 class Posicio
 {
 public:
-    Posicio(const string& posicio) : m_posicio(posicio) {}
-    Posicio() { m_fila = 0; m_columna = 0; }
+    Posicio(const string& posicio) { m_posicio = posicio; fromString(posicio); }
+    Posicio() {
+        m_fila = 0; m_columna = 0;
+        m_posicio = toString();
+    }
 
-    bool operator==(const Posicio& posicio) const;
+	bool operator==(const Posicio& posicio) const;
 
-    void setPosicio(int fila, int columna) { m_fila = fila; m_columna = columna; }
-    void setPosicio(string posicio) { m_posicio = posicio; }
+    void setPosicio(int fila, int columna) { m_fila = fila; m_columna = columna; m_posicio = toString(); }
+    void setPosicio(string posicio) { m_posicio = posicio; fromString(posicio); }
 
     int getFila() const { return m_fila; }
     int getColumna() const { return m_columna; }
