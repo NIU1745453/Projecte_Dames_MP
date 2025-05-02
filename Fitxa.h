@@ -1,8 +1,10 @@
-#include <iostream>
-#include <string.h>
 #include "Moviment.h"
-#include "Tauler.h"
-#include "Posicio.h"
+//#include "posicio.hpp"
+
+//#ifndef FITXA_H
+//#define FITXA_H
+
+
 
 using namespace std;
 
@@ -56,3 +58,5 @@ private:
 	Moviment m_movimentsValids[MAX_MOVIMENTS];
 	int m_nValidas;
 };
+
+//#endif 

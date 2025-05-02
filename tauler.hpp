@@ -3,10 +3,6 @@
 
 
 #include "posicio.hpp"
-
-
-#include <iostream>
-#include <string.h>
 #include "Fitxa.h"
 #include <fstream>
 
