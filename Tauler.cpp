@@ -64,14 +64,12 @@ void Tauler::actualitzaMovimentsValids()
 	Moviment movimentActual;
 	Moviment movimentsValids[MAX_MOVIMENTS];
 
-	// Inicializar movimientos vacíos
 	for (int y = 0; y < MAX_MOVIMENTS; y++) {
 		movPendents[y].setMoviment("", y);
 		posValides[y].setPosicio("");
 		movimentsValids[y].setMoviment("", y);
 	}
 
-	// Crear primer movimiento vacío (sin posición inicial)
 	movimentActual.setMoviment("", 0);
 	int nPosicions = 0;
 	movimentActual.setnMoviment(nPosicions);
@@ -126,54 +124,73 @@ void Tauler::actualitzaMovimentsValids()
 
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
-	bool moviment = true;
 	nPosicions = 0;
 	int pos = 0;
 	Posicio newPos = origen;
 	int columna = newPos.getColumna();
 	int fila = newPos.getFila();
-	ColorFitxa colorOrig = m_tauler[fila][columna].getColor(); //agafa el color de la de fitxa per saber de quin equip es
-	Posicio perVisitar[MAX_MOVIMENTS]; //guarda les posicions que contenen una fitxa de color contrari
+	ColorFitxa colorOrig = m_tauler[fila][columna].getColor();
+	Posicio perVisitar[MAX_MOVIMENTS];
 	int Visitar = 0, bucle = 0;
 	bool trobat = false;
-	
-	//(newPos.getColumna() <= 7 && newPos.getColumna() >= 0) && (newPos.getFila() <= 7 && newPos.getFila() >= 0)
-	while (pos < MAX_MOVIMENTS && trobat == false)
+
+	// Diagonal directions: (-1, -1), (-1, +1), (+1, -1), (+1, +1)
+	int deltaFila[4] = { -1, -1, 1, 1 };
+	int deltaCol[4] = { -1,  1, -1, 1 };
+
+	while (pos < MAX_MOVIMENTS && !trobat)
 	{
-		for (int i = (newPos.getFila() -1); i < N_FILES; i += 2) //mira las esquinas
+		for (int d = 0; d < 4; ++d)
 		{
-			for (int j = (newPos.getColumna() -1); i < N_COLUMNES; i += 2)
+			int i = newPos.getFila() + deltaFila[d];
+			int j = newPos.getColumna() + deltaCol[d];
+
+			// Check bounds
+			if (i >= 0 && i < N_FILES && j >= 0 && j < N_COLUMNES)
 			{
-				if (i < 8 && i> 0 && j < 8 && j > 0) //nomes actua si esta dins dels parametres per tal de no entrar a pos inexistents de l'array
+				newPos.setPosicio(i, j);
+
+				// Movement restriction depending on color
+				if ((colorOrig == COLOR_BLANC && i < newPos.getFila()) || (colorOrig == COLOR_NEGRE && i > newPos.getFila()))
 				{
-					newPos.setPosicio(i, j); // guarda la posicion en newPos
-					if (!posicioExistent(newPos, nPosicions, posicionsPossibles)) //mira que no este ya añadida en el array (para no repatir)
+					if (!posicioExistent(newPos, nPosicions, posicionsPossibles))
 					{
-						columna = perVisitar[pos].getColumna();
-						fila = perVisitar[pos].getFila();
-						if(m_tauler[i][j].getTipus() == TIPUS_EMPTY)
-							posicionsPossibles[nPosicions++] = newPos; //si es una posicion bacia la añade sin mas
-						else if (m_tauler[i][j].getColor() != colorOrig && m_tauler[fila][columna].getColor() != m_tauler[i][j].getColor()) //si es de un color diferente y la anterior es del color de la fitxa en juego la mete en el array para visitar
+						// Optional: protect perVisitar access
+						if (pos < Visitar)
 						{
-							perVisitar[Visitar] = newPos;
-							Visitar++;
+							columna = perVisitar[pos].getColumna();
+							fila = perVisitar[pos].getFila();
+						}
+
+						if (m_tauler[i][j].getTipus() == TIPUS_EMPTY)
+						{
+							posicionsPossibles[nPosicions++] = newPos;
+						}
+						else if (m_tauler[i][j].getColor() != colorOrig
+							&& (pos >= Visitar || m_tauler[fila][columna].getColor() != m_tauler[i][j].getColor()))
+						{
+							perVisitar[Visitar++] = newPos;
 						}
 					}
 				}
 			}
 		}
-		pos++; //suma uno para hacer otra vuelta en el bucle
 
-		if (Visitar != 0)
+		pos++;
+
+		if (Visitar != 0 && bucle < Visitar)
 		{
-			newPos = perVisitar[bucle]; //edita newPos para visitar la pos con una fitxa de color dif
+			newPos = perVisitar[bucle];
 			bucle++;
 		}
 		else
 			trobat = true;
 	}
+
 	setNPosicions(nPosicions);
 }
+
+
 
 bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
@@ -557,7 +574,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 		jugador (eliminar la peça del tauler) , seguint els criteris que s’han explicat a les regles del joc.
 	*/
 
-string Tauler::toString()
+string Tauler::toString() const
 {
 	/*
 	ofstream fitxer(nomFitxer);
@@ -590,11 +607,13 @@ string Tauler::toString()
 
 	fitxer.close();
 	*/
-	string tauler = "hola";
+	string tauler[N_FILES +1][N_COLUMNES+1];
+	string yes = "";
 	int fil = N_FILES;
-	for (int i = 0; i > N_COLUMNES; i++)
+	int j = 0;
+	/*for (int i = 0; i > N_COLUMNES; i++)
 	{
-		cout << fil << ":" << ' ';
+		tauler[i][j] << fil << ":" << ' ';
 		for (int j = 0; j < N_COLUMNES; j++)
 		{
 			if (m_tauler[i][j].getTipus() == TIPUS_DAMA)
@@ -616,8 +635,8 @@ string Tauler::toString()
 
 		}
 		fil--;
-	}
-	return tauler;
+	}*/
+	return yes;
 }
 
 //void EscriuTauler
