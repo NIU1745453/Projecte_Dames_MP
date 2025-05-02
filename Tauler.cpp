@@ -129,7 +129,176 @@ void Tauler::actualitzaMovimentsValids()
 
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
-	nPosicions = 0;
+
+
+		bool seguir = true;
+		int diferencia = 0;
+		Posicio mirar[30];
+		int mir = 0;
+		int i = 0;
+
+		if (m_tauler[origen.getFila()][origen.getColumna()].getTipus() == TIPUS_NORMAL)
+		{
+			if (m_tauler[origen.getFila()][origen.getColumna()].getColor() == COLOR_BLANC)
+			{
+				if ((m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_NORMAL || m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_DAMA) && m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getColor() == COLOR_NEGRE)
+				{
+					if (m_tauler[origen.getFila() + 2][origen.getColumna() + 2].getTipus() == TIPUS_EMPTY)
+					{
+						posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() + 2][origen.getColumna() + 2].getPosicio().getPosicio());
+						mirar[mir].setPosicio( m_tauler[origen.getFila() + 2][origen.getColumna() + 2].getPosicio().getPosicio());
+						mir++;
+						nPosicions++;
+					}
+				}
+				if (m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY)
+				{
+					posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getPosicio().getPosicio());
+					mirar[mir].setPosicio( m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getPosicio().getPosicio());
+					mir++;
+					nPosicions++;
+				}
+				if ((m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_NORMAL || m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_DAMA) && m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getColor() == COLOR_NEGRE)
+				{
+					if (m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getTipus() == TIPUS_EMPTY)
+					{
+						posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getPosicio().getPosicio());
+						mirar[mir].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getPosicio().getPosicio());
+						mir++;
+						nPosicions++;
+					}
+				}
+				if (m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY)
+				{
+					posicionsPossibles[nPosicions].setPosicio m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio().getPosicio());
+					mirar[mir].setPosicio m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio().getPosicio());
+					mir++;
+					nPosicions++;
+				}
+				if (nPosicions == 0)
+				{
+					seguir = false;
+				}
+
+				while (seguir)
+				{
+					if ((m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() + 1].getTipus() == TIPUS_NORMAL || m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() + 1].getTipus() == TIPUS_DAMA) && m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() + 1].getColor() == COLOR_NEGRE)
+					{
+						if (m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() + 2].getTipus() == TIPUS_EMPTY)
+						{
+							posicionsPossibles[nPosicions].setPosicio( m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
+							mirar[mir].setPosicio( m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
+							mir++;
+							nPosicions++;
+						}
+					}
+					if ((m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() + 1].getTipus() == TIPUS_NORMAL || m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() + 1].getTipus() == TIPUS_DAMA) && m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() + 1].getColor() == COLOR_NEGRE)
+					{
+						if (m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() + 2].getTipus() == TIPUS_EMPTY)
+						{
+							posicionsPossibles[nPosicions].setPosicio( m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
+							mirar[mir].setPosicio( m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
+							mir++;
+							nPosicions++;
+						}
+					}
+					for (int x = 0; x < mir - 1; x++)
+					{
+						mirar[x] = mirar[x + 1];
+					}
+					mir--;
+					if (mir == 0)
+					{
+						seguir = false;
+					}
+				}
+			}
+			else//para las negras
+			{
+				if ((m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_NORMAL || m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_DAMA) && m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getColor() == COLOR_BLANC)
+				{
+					if (m_tauler[origen.getFila() + 2][origen.getColumna() - 2].getTipus() == TIPUS_EMPTY)
+					{
+						posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() + 2][origen.getColumna() - 2].getPosicio().getPosicio());
+						mirar[mir].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getPosicio().getPosicio());
+						mir++;
+						nPosicions++;
+					}
+				}
+				if (m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY)
+				{
+					posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getPosicio().getPosicio());
+					mirar[mir].setPosicio( m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getPosicio().getPosicio());
+					mir++;
+					nPosicions++;
+				}
+				if ((m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_NORMAL || m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_DAMA) && m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getColor() == COLOR_BLANC)
+				{
+					if (m_tauler[origen.getFila() - 2][origen.getColumna() - 2].getTipus() == TIPUS_EMPTY)
+					{
+						posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() - 2].getPosicio().getPosicio());
+						mirar[mir].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() - 2].getPosicio().getPosicio());
+						mir++;
+						nPosicions++;
+					}
+				}
+				if (m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY)
+				{
+					posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getPosicio().getPosicio());
+					mirar[mir].setPosicio( m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getPosicio().getPosicio());
+					mir++;
+					nPosicions++;
+				}
+				if (nPosicions == 0)
+				{
+					seguir = false;
+				}
+
+				while (seguir)
+				{
+					if ((m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() - 1].getTipus() == TIPUS_NORMAL || m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() - 1].getTipus() == TIPUS_DAMA) && m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() - 1].getColor() == COLOR_BLANC)
+					{
+						if (m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() - 2].getTipus() == TIPUS_EMPTY)
+						{
+							posicionsPossibles[nPosicions].setPosicio( m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() - 2].getPosicio().getPosicio());
+							mirar[mir].setPosicio( m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
+							mir++;
+							nPosicions++;
+						}
+					}
+					if ((m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() - 1].getTipus() == TIPUS_NORMAL || m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() - 1].getTipus() == TIPUS_DAMA) && m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() - 1].getColor() == COLOR_BLANC)
+					{
+						if (m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() - 2].getTipus() == TIPUS_EMPTY)
+						{
+
+							posicionsPossibles[nPosicions].setPosicio( m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() - 2].getPosicio().getPosicio());
+							mirar[mir].setPosicio( m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() - 2].getPosicio().getPosicio());
+							mir++;
+							nPosicions++;
+						}
+					}
+					for (int x = 0; x < mir - 1; x++)
+					{
+						mirar[x] = mirar[x + 1];
+					}
+					mir--;
+					if (mir == 0)
+					{
+						seguir = false;
+					}
+				}
+			}
+		}
+		else//para las dadms
+		{
+
+		}
+	
+
+
+
+
+	/*nPosicions = 0;
 	int pos = 0;
 	Posicio newPos = origen;
 	int columna = newPos.getColumna();
@@ -189,7 +358,7 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 			trobat = true;
 	}
 
-	setNPosicions(nPosicions);
+	setNPosicions(nPosicions);*/
 }
 
 
