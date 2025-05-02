@@ -129,13 +129,22 @@ Moviment Tauler::camiViable(Posicio& posActual)
 	int i = 0, x = 1;
 	int nPos, posVal;
 
-	Posicio movPendents[MAX_MOVIMENTS], movimentPendent[MAX_MOVIMENTS];
-	Posicio posValides[MAX_MOVIMENTS];
-	Posicio movimentActual[MAX_MOVIMENTS];
+	Moviment movPendents[MAX_MOVIMENTS], movimentPendent[MAX_MOVIMENTS];
+	Moviment posValides[MAX_MOVIMENTS];
+	Moviment movimentActual[MAX_MOVIMENTS];
 	movPendents[0] = movimentActual;
 	Posicio posicioActual = posActual;
 
-	Posicio movValids[MAX_MOVIMENTS]; //se le tendra q cambiar el nombre para adaptarlo a la actualizacion de moviment.h
+	for (int y = 0; y < MAX_MOVIMENTS; y++)
+	{
+		movPendents[y].setMoviment('', y);
+		movimentPendent[y].setMoviment('', y);
+		posValides[y].setMoviment('', y);
+		movimentActual[y].setMoviment('', y);
+
+	}
+
+	Moviment movValids[MAX_MOVIMENTS]; //se le tendra q cambiar el nombre para adaptarlo a la actualizacion de moviment.h
 
 	do
 	{

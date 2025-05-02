@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string.h>
+#include <sstream>
 #include "Fitxa.h"
 using namespace std;
 
@@ -29,8 +30,9 @@ private:
     string m_posicio;
 };
 
-ifstream& operator>>(ifstream& fitxer, Posicio& posicio);
-ofstream& operator<<(ofstream& fitxer, const Posicio& posicio);
+stringstream& operator>>(stringstream& fitxer, Posicio& posicio);
+//ofstream& operator<<(ofstream& fitxer, const Posicio& posicio);
+stringstream& operator<<(stringstream& fitxer, const Posicio& posicio);
 
 void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio);
 void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio);

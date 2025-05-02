@@ -25,7 +25,7 @@ void Posicio::fromString(const string& pos)
 
 }
 
-ifstream& operator>>(ifstream& fitxer, Posicio& posicio)
+stringstream& operator>>(stringstream& fitxer, Posicio& posicio)
 {
     string pos;
     fitxer >> pos;
@@ -33,7 +33,7 @@ ifstream& operator>>(ifstream& fitxer, Posicio& posicio)
     return fitxer;
 
 }
-ofstream& operator<<(ofstream& fitxer, const Posicio& posicio)
+stringstream& operator<<(stringstream& fitxer, const Posicio& posicio)
 {
     string pos = posicio.toString();
     fitxer << pos;
