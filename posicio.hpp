@@ -22,6 +22,7 @@ public:
         m_fila = 0; m_columna = 0;
         m_posicio = toString();
     }
+    Posicio(int fila, int columna) { m_fila = fila; m_columna = columna; }
 
 	bool operator==(const Posicio& posicio) const;
 

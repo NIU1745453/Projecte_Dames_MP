@@ -67,28 +67,35 @@ void Tauler::actualitzaMovimentsValids()
 		{
 			if (m_tauler[fila][col].getTipus() != TIPUS_EMPTY)
 			{
-				Posicio posInicial(fila, col);
+				Posicio posInicial;
+				posInicial.setPosicio(fila, col); 
+
 				movimentActual.setMoviment(posInicial.getPosicio(), 0);
 				movimentActual.setnMoviment(1);
-				movPendents[0] = movimentActual;
-				nPendents = 1;
+
+				movPendents[nPendents++] = movimentActual;
 
 				while (nPendents > 0)
 				{
+					// Tomamos el primer movimiento pendiente
 					movimentActual = movPendents[0];
 
-					for (int j = 0; j < nPendents - 1; j++)
+					// Desplazamos los movimientos pendientes hacia adelante
+					for (int j = 0; j < nPendents - 1; j++) {
 						movPendents[j] = movPendents[j + 1];
-					nPendents--;
+					}
+					nPendents--; // Reducimos el número de pendientes
 
+					// Obtenemos la última posición del movimiento actual
 					int ultPos = movimentActual.getnMoviment() - 1;
-					Posicio posicioActual;
-					posicioActual = movimentActual.getMoviment(ultPos);
+					Posicio posicioActual = movimentActual.getMoviment(ultPos);
 
+					// Obtenemos las posiciones posibles para este movimiento
 					getPosicionsPossibles(posicioActual, nPos, posValides);
 
 					if (nPos > 0)
 					{
+						// Para cada posición válida, creamos un nuevo movimiento
 						for (int i = 0; i < nPos; i++)
 						{
 							Moviment nouMoviment = movimentActual;
@@ -96,12 +103,14 @@ void Tauler::actualitzaMovimentsValids()
 							nouMoviment.setMoviment(posValides[i].getPosicio(), nMov);
 							nouMoviment.setnMoviment(nMov + 1);
 
+							// Añadimos el nuevo movimiento pendiente si no excedemos el límite
 							if (nPendents < MAX_MOVIMENTS)
 								movPendents[nPendents++] = nouMoviment;
 						}
 					}
 					else
 					{
+						// Si el movimiento tiene más de una posición, lo añadimos a los movimientos válidos
 						if (movimentActual.getnMoviment() > 1)
 						{
 							if (nValids < MAX_MOVIMENTS)
@@ -113,8 +122,10 @@ void Tauler::actualitzaMovimentsValids()
 		}
 	}
 
+	// Finalmente, actualizamos el número de posiciones válidas
 	setNPosicions(nValids);
 }
+
 
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
