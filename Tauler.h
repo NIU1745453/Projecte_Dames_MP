@@ -26,6 +26,8 @@ Posicions possibles de la posició ‘b2’:[‘a3’,‘d4’,‘f6’,‘d8’,‘h8’]*/
 	bool posicioExistent(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);
 	/*comprova que la posicio que s'ha pasat existeix dins de l'array de posicionsPossibles*/
 
+	Moviment camiViable(Posicio& posActual);
+
 	bool mouFitxa(const Posicio& origen, const Posicio& desti);
 /*
 Mou la peça que ocupa la posició del paràmetre origen a la posició del paràmetre desti.
@@ -46,7 +48,7 @@ A part de moure la peça de la posició origen a la posició destí ha de fer el seg
 
 
 
-	void ToString(const string& nomFitxer, const Posicio& posicio);
+	void toString(const string& nomFitxer, const Posicio& posicio);
 	/*Genera un string amb l’estat actual del tauler de joc en el format que especifiquem a continuació
 	8: _ X _ D _ _ _ X 
 	7: _ _ _ _ _ _ X _

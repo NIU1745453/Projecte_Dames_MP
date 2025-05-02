@@ -122,12 +122,74 @@ bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio pos
 	return trobat;
 }
 
+Moviment Tauler::camiViable(Posicio& posActual)
+{
+	//ALGORISME PER MIRAR ELS MOVIMENTS QUE ES PODEN FER
+	int i = 0, x = 1;
+	int nPos, posVal;
+
+	Posicio movPendents[MAX_MOVIMENTS], movimentPendent[MAX_MOVIMENTS];
+	Posicio posValides[MAX_MOVIMENTS];
+	Posicio movimentActual[MAX_MOVIMENTS];
+
+	movPendents[0] = movimentActual;
+	Posicio posicioActual = posActual;
+
+	Posicio movValids[MAX_MOVIMENTS];
+
+	do
+	{
+		movimentActual[0] = movPendents[i];
+		getPosicionsPossibles(posicioActual, nPos, posValides);
+
+		while (posValides != [])
+		{
+			movimentActual[x] = posValides[0];
+			for (int j = 0; , j < nPos - 1; j++)
+				movPendents[j] = posValides[j + 1];
+			posicioActual = movimentActual[x];
+			getPosicionsPossibles(posicioActual, nPos, posValides);
+			x++
+		}
+		if (movimentActual != [])
+			movValids[i] = movimentActual
+
+	} while (movimentsPendents != []);
+
+	return movValids;
+
+
+	/*movimentsValids = []
+		movimentsPendents = []
+		movimentActual = []
+		afegir movimentActual a movimentsPendents
+		posicioActual = posicio de la Fitxa
+		do
+		{
+			movimentActual = primer element de movimentsPendents
+			posValides = PosicionsValides(posicioActual)
+			while (posValides != [])
+			{
+			afegir a movimentActual la primera posicio valida
+				per la resta de posicions valides
+				movimentPendent = duplicaMoviment(movimentActual)
+				afegir la posicio a movimentPendent
+				afegir movimentPendent a movimentsPendents
+				posicioActual = primera posicio valida
+				posValides = PosicionsValides(posicioActual)
+			}
+			if (movimentActual != [])
+				afegir movimentActual a movimentsValids
+		} while movimentsPendents != []*/
+
+}
+
 bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 {
 
 }
 
-void Tauler::ToString(const string& nomFitxer, const Posicio& posicio)
+void Tauler::toString(const string& nomFitxer, const Posicio& posicio)
 {
 	/*
 	ofstream fitxer(nomFitxer);
