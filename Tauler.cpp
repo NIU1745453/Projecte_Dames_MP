@@ -590,11 +590,12 @@ void Tauler::toString(const string& nomFitxer, const Posicio& posicio)
 
 	fitxer.close();
 	*/
-	for (int i = 0; i > N_COLUMNES; i--)
+	int fil = N_FILES;
+	for (int i = 0; i > N_COLUMNES; i++)
 	{
+		cout << fil << ":" << ' ';
 		for (int j = 0; j < N_COLUMNES; j++)
 		{
-			cout << fil << ":" << ' ';
 			if (m_tauler[i][j].getTipus() == TIPUS_DAMA)
 			{
 				if (m_tauler[i][j].getColor() == COLOR_BLANC)
@@ -613,6 +614,7 @@ void Tauler::toString(const string& nomFitxer, const Posicio& posicio)
 				cout << "_" << ' ';
 
 		}
+		fil--;
 	}
 }
 
