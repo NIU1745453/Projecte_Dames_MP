@@ -18,7 +18,7 @@ public:
 		m_nPosicio = 0;
 	}
 
-	Posicio getMoviment(int i) const { return m_posicio[i] }
+	Posicio getMoviment(int i) const { return m_posicio[i]; }
 	int getnMoviment() { return m_nPosicio; }
 
 	void setMoviment(string mov, int i) { m_posicio[i].setPosicio(mov); }

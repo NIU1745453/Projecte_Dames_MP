@@ -149,9 +149,11 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 					newPos.setPosicio(i, j); // guarda la posicion en newPos
 					if (!posicioExistent(newPos, nPosicions, posicionsPossibles)) //mira que no este ya añadida en el array (para no repatir)
 					{
+						columna = perVisitar[pos].getColumna();
+						fila = perVisitar[pos].getFila();
 						if(m_tauler[i][j].getTipus() == TIPUS_EMPTY)
 							posicionsPossibles[nPosicions++] = newPos; //si es una posicion bacia la añade sin mas
-						else if (m_tauler[i][j].getColor() != colorOrig && perVisitar[pos] != m_tauler[i][j].getColor()) //si es de un color diferente y la anterior es del color de la fitxa en juego la mete en el array para visitar
+						else if (m_tauler[i][j].getColor() != colorOrig && m_tauler[fila][columna].getColor() != m_tauler[i][j].getColor()) //si es de un color diferente y la anterior es del color de la fitxa en juego la mete en el array para visitar
 						{
 							perVisitar[Visitar] = newPos;
 							Visitar++;
