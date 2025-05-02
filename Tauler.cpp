@@ -122,6 +122,7 @@ bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio pos
 	return trobat;
 }
 
+//se tiene que repasar pq no estoy segura de que funcione bien del todo
 Moviment Tauler::camiViable(Posicio& posActual)
 {
 	//ALGORISME PER MIRAR ELS MOVIMENTS QUE ES PODEN FER
@@ -131,30 +132,36 @@ Moviment Tauler::camiViable(Posicio& posActual)
 	Posicio movPendents[MAX_MOVIMENTS], movimentPendent[MAX_MOVIMENTS];
 	Posicio posValides[MAX_MOVIMENTS];
 	Posicio movimentActual[MAX_MOVIMENTS];
-
 	movPendents[0] = movimentActual;
 	Posicio posicioActual = posActual;
 
-	Posicio movValids[MAX_MOVIMENTS];
+	Posicio movValids[MAX_MOVIMENTS]; //se le tendra q cambiar el nombre para adaptarlo a la actualizacion de moviment.h
 
 	do
 	{
 		movimentActual[0] = movPendents[i];
 		getPosicionsPossibles(posicioActual, nPos, posValides);
 
-		while (posValides != [])
+		while (posValides != [] && x < MAX_MOVIMENTS)
 		{
+			movimentPendent = movimentActual;
 			movimentActual[x] = posValides[0];
-			for (int j = 0; , j < nPos - 1; j++)
-				movPendents[j] = posValides[j + 1];
+			for (int j = 0; j < nPos; j++)
+			{
+				movimentPendent[x] = posValides[j + 1];
+				movPendents[j] = movimentPendent;
+			}
 			posicioActual = movimentActual[x];
 			getPosicionsPossibles(posicioActual, nPos, posValides);
 			x++
 		}
+		x = 0;
 		if (movimentActual != [])
-			movValids[i] = movimentActual
+			movValids[i] = movimentActual;
 
-	} while (movimentsPendents != []);
+		i++;
+
+	} while (movimentsPendents != [] && i < MAX_MOVIMENTS);
 
 	return movValids;
 
