@@ -1,3 +1,5 @@
+#ifndef POSICIO_H_
+    #define POSICIO_H_
 using namespace std;
 #include <iostream>
 #include <string.h>
@@ -42,4 +44,4 @@ ostream& operator<<(ostream& fitxer, const Posicio& posicio);
 //void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio);
 //void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio);
 
-//#endif 
+#endif 

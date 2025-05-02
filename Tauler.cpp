@@ -1,5 +1,5 @@
 #include "tauler.hpp"
-
+#include "posicio.hpp"
 void Tauler::inicialitza(const string& nomFitxer)
 {
 	ifstream fitxer;

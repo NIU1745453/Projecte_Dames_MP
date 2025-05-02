@@ -1,5 +1,5 @@
-//#ifndef MOVIMENT_H
-//#define MOVIMENT_H
+#ifndef MOVIMENT_H_
+	#define MOVIMENT_H_
 
 #include "posicio.hpp"
 
@@ -29,4 +29,4 @@ private:
 	int m_nPosicio;
 };
 
-//#endif 
+#endif 

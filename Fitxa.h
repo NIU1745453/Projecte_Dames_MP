@@ -1,6 +1,7 @@
+#ifndef FITXA_H
+	#define FITXA_H
 #include "Moviment.h"
-//#include "posicio.hpp"
-
+#include "posicio.hpp"
 //#ifndef FITXA_H
 //#define FITXA_H
 
@@ -59,4 +60,4 @@ private:
 	int m_nValidas;
 };
 
-//#endif 
+#endif 
