@@ -1,9 +1,17 @@
-#ifndef POSICIO_H
-#define POSICIO_H
-
-
 #include <iostream>
+#include <string.h>
+#include <sstream>
+#include <iostream>
+#include <fstream>
+
+
 using namespace std;
+
+const int N_FILES = 8;
+const int N_COLUMNES = 8;
+
+//#ifndef POSICIO_H
+//#define POSICIO_H
 
 
 
@@ -30,10 +38,11 @@ private:
     string m_posicio;
 };
 
-ifstream& operator>>(ifstream& fitxer, Posicio& posicio);
-ofstream& operator<<(ofstream& fitxer, const Posicio& posicio);
+stringstream& operator>>(stringstream& fitxer, Posicio& posicio);
+//ofstream& operator<<(ofstream& fitxer, const Posicio& posicio);
+stringstream& operator<<(stringstream& fitxer, const Posicio& posicio);
 
-void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio);
-void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio);
+//void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio);
+//void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio);
 
-#endif 
+//#endif 
