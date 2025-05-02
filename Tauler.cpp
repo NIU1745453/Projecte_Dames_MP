@@ -576,67 +576,56 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 
 string Tauler::toString() const
 {
-	/*
-	ofstream fitxer(nomFitxer);
-
-	for (int i = 0; i > N_COLUMNES; i--)
-	{
-		for(int j = 0; j< N_COLUMNES; j++)
-		{
-			fitxer << fil << ":" << ' ';
-			if (m_tauler[i][j].getTipus() == TIPUS_DAMA)
-			{
-				if (m_tauler[i][j].getColor() == COLOR_BLANC)
-					fitxer << 'D' << ' ';
-				else
-					fitxer << 'R' << ' ';
-			} 
-			else if (m_tauler[i][j].getTipus() == TIPUS_NORMAL)
-			{
-				if (m_tauler[i][j].getColor() == COLOR_BLANC)
-					fitxer << 'O' << ' ';
-				else
-					fitxer << 'X' << ' ';
-			}
-			else
-				fitxer << "_" << ' ';
-
-		}
-	}
-	
-
-	fitxer.close();
-	*/
 	string tauler[N_FILES +1][N_COLUMNES+1];
-	string yes = "";
-	int fil = N_FILES;
-	int j = 0;
-	/*for (int i = 0; i > N_COLUMNES; i++)
+	ColorFitxa colTauler;
+	string sortida = "";
+	for (int i = 0; i < N_FILES; i++)
 	{
-		tauler[i][j] << fil << ":" << ' ';
 		for (int j = 0; j < N_COLUMNES; j++)
 		{
-			if (m_tauler[i][j].getTipus() == TIPUS_DAMA)
+			colTauler = m_tauler[i][j].getColor();
+			switch (colTauler)
 			{
-				if (m_tauler[i][j].getColor() == COLOR_BLANC)
-					cout << 'D' << ' ';
+			case COLOR_BLANC:
+				if (m_tauler[i][j].getTipus() == TIPUS_DAMA)
+					tauler[i][j] = 'D';
 				else
-					cout << 'R' << ' ';
-			}
-			else if (m_tauler[i][j].getTipus() == TIPUS_NORMAL)
-			{
-				if (m_tauler[i][j].getColor() == COLOR_BLANC)
-					cout << 'O' << ' ';
+					tauler[i][j] = 'O';
+				break;
+			case CAP_COLOR:
+				tauler[i][j] = '_';
+				break;
+			case COLOR_NEGRE:
+				if (m_tauler[i][j].getTipus() == TIPUS_DAMA)
+					tauler[i][j] = 'R';
 				else
-					cout << 'X' << ' ';
+					tauler[i][j] = 'X';
+				break;
 			}
-			else
-				cout << "_" << ' ';
-
 		}
-		fil--;
-	}*/
-	return yes;
+	}
+	string pos;
+	for (int i = 0; i < N_FILES; i++)
+	{
+		
+		pos = '8' + i;
+
+		sortida += pos + " :";
+		for (int j = 0; j < N_COLUMNES; j++)
+		{
+			sortida += tauler[i][j];
+			sortida += " ";
+		}
+		sortida += "\n";
+	}
+
+	for(int i = 0; i < N_COLUMNES +1; i++)
+	{
+		pos = 'A' + i;
+		sortida += " " + pos;
+	}
+
+	return sortida;
 }
 
 //void EscriuTauler

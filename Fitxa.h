@@ -41,8 +41,8 @@ public:
 	int getPosHorit() { return m_posicio.getFila(); }
 	Posicio getPosicio() { return m_posicio; }
 	int getnValidas() { return m_nValidas; }
-	TipusFitxa getTipus() { return m_tipus; }
-	ColorFitxa getColor() { return m_color; }
+	TipusFitxa getTipus() const { return m_tipus; }
+	ColorFitxa getColor() const { return m_color; }
 	Moviment getMoviments(int i) { return m_movimentsValids[i]; }
 
 	void setPosFitxa(int vert, int horit) { m_posicio.setPosicio(vert, horit); }
