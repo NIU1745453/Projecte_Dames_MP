@@ -437,7 +437,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 
 		}
 
-		for (j = 0; j < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() - 1; j++)
+		for (j = 0; j < x - 1; j++)
 		{
 			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
 			{
