@@ -145,17 +145,14 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 			int i = newPos.getFila() + deltaFila[d];
 			int j = newPos.getColumna() + deltaCol[d];
 
-			// Check bounds
 			if (i >= 0 && i < N_FILES && j >= 0 && j < N_COLUMNES)
 			{
 				newPos.setPosicio(i, j);
 
-				// Movement restriction depending on color
-				if ((colorOrig == COLOR_BLANC && i < newPos.getFila()) || (colorOrig == COLOR_NEGRE && i > newPos.getFila()))
+				if ((colorOrig == COLOR_BLANC && i < origen.getFila()) || (colorOrig == COLOR_NEGRE && i > origen.getFila()))
 				{
 					if (!posicioExistent(newPos, nPosicions, posicionsPossibles))
 					{
-						// Optional: protect perVisitar access
 						if (pos < Visitar)
 						{
 							columna = perVisitar[pos].getColumna();
@@ -608,7 +605,7 @@ string Tauler::toString() const
 	for (int i = 0; i < N_FILES; i++)
 	{
 		
-		pos = '8' + i;
+		pos = '8' - i;
 
 		sortida += pos + " :";
 		for (int j = 0; j < N_COLUMNES; j++)
@@ -619,7 +616,7 @@ string Tauler::toString() const
 		sortida += "\n";
 	}
 
-	for(int i = 0; i < N_COLUMNES +1; i++)
+	for(int i = 0; i < N_COLUMNES ; i++)
 	{
 		pos = 'A' + i;
 		sortida += " " + pos;
@@ -627,33 +624,3 @@ string Tauler::toString() const
 
 	return sortida;
 }
-
-//void EscriuTauler
-
-//void escriuTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES])
-//{
-//	ofstream fitxer;
-//	fitxer.open(nomFitxer);
-//
-//	if (fitxer.is_open())
-//	{
-//		char tipFitxa; //conte el tipus de la fitxa
-//		//Posicio pos;
-//
-//		for (int i = N_FILES - 1; i >= 0; i--)
-//		{
-//			for (int j = 0; j < N_COLUMNES; j++)
-//			{
-//				if (tauler[i][j] != ' ')
-//				{
-//					tipFitxa = tauler[i][j];
-//					Posicio pos(i, j);
-//					fitxer << tipFitxa << ' ';
-//					fitxer << pos << "\n";
-//				}
-//			}
-//		}
-//
-//		fitxer.close();
-//	}
-//}
