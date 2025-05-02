@@ -387,11 +387,11 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 			}
 		}
 
-		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna() == 0 && direY = -1)
+		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna() == 0 && direY == -1)
 		{
 			m_tauler[origen.getFila()][origen.getColumna()].setTipus(TIPUS_DAMA);
 		}
-		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna() == 7 && direY = 1)
+		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna() == 7 && direY == 1)
 		{
 			m_tauler[origen.getFila()][origen.getColumna()].setTipus(TIPUS_DAMA);
 		}
