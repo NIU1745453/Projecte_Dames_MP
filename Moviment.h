@@ -3,6 +3,8 @@
 
 #include "posicio.hpp"
 
+const int N_FILES = 8;
+const int N_COLUMNES = 8;
 const int MAX_PECES = 24;
 
 class Moviment
@@ -16,7 +18,7 @@ public:
 		m_nPosicio = 0;
 	}
 
-	string getMoviment(int i) const { return m_posicio[i].getPosicio(); }
+	Posicio getMoviment(int i) const { return m_posicio[i] }
 	int getnMoviment() { return m_nPosicio; }
 
 	void setMoviment(string mov, int i) { m_posicio[i].setPosicio(mov); }
