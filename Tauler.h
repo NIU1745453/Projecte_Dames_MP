@@ -24,7 +24,7 @@ peça. nPosicions indica el nº total de posicions possibles.
 Posicions possibles de la posició ‘b2’:[‘a3’,‘d4’,‘f6’,‘d8’,‘h8’]*/
 
 	bool posicioExistent(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);
-	/*comprova que la posicio que s'ha pasat existeis dins de l'array de posicionsPossibles*/
+	/*comprova que la posicio que s'ha pasat existeix dins de l'array de posicionsPossibles*/
 
 	bool mouFitxa(const Posicio& origen, const Posicio& desti);
 /*

@@ -68,37 +68,43 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 	Posicio newPos = origen;
 	int columna = newPos.getColumna();
 	int fila = newPos.getFila();
-	ColorFitxa colorOrig = m_tauler[fila][columna].getColor();
-	Posicio perVisitar[MAX_MOVIMENTS];
-	int Visitar = 0;
-
-	while ((newPos.getColumna() <= 7 && newPos.getColumna() >= 0) && (newPos.getFila() <= 7 && newPos.getFila() >= 0))
+	ColorFitxa colorOrig = m_tauler[fila][columna].getColor(); //agafa el color de la de fitxa per saber de quin equip es
+	Posicio perVisitar[MAX_MOVIMENTS]; //guarda les posicions que contenen una fitxa de color contrari
+	int Visitar = 0, bucle = 0;
+	bool trobat = false;
+	
+	//(newPos.getColumna() <= 7 && newPos.getColumna() >= 0) && (newPos.getFila() <= 7 && newPos.getFila() >= 0)
+	while (pos < MAX_MOVIMENTS && trobat == false)
 	{
-		for (int i = (newPos.getFila()); i < N_FILES; i += 2)
+		for (int i = (newPos.getFila() -1); i < N_FILES; i += 2) //mira las esquinas
 		{
-			for (int j = (newPos.getColumna()); i < N_COLUMNES; i += 2)
+			for (int j = (newPos.getColumna() -1); i < N_COLUMNES; i += 2)
 			{
-				if (i < 8 && i> 0 && j < 8 && j > 0)
+				if (i < 8 && i> 0 && j < 8 && j > 0) //nomes actua si esta dins dels parametres per tal de no entrar a pos inexistents de l'array
 				{
-					if (m_tauler[i][j].getTipus() == TIPUS_EMPTY)
+					newPos.setPosicio(i, j); // guarda la posicion en newPos
+					if (!posicioExistent(newPos, nPosicions, posicionsPossibles)) //mira que no este ya añadida en el array (para no repatir)
 					{
-						newPos.setPosicio(i, j);
-						if (!posicioExistent(newPos, nPosicions, posicionsPossibles))
+						if(m_tauler[i][j].getTipus() == TIPUS_EMPTY)
+							posicionsPossibles[nPosicions++] = newPos; //si es una posicion bacia la añade sin mas
+						else if (m_tauler[i][j].getColor() != colorOrig && perVisitar[pos] != m_tauler[i][j].getColor()) //si es de un color diferente y la anterior es del color de la fitxa en juego la mete en el array para visitar
 						{
-							if(m_tauler[i][j].getTipus() == TIPUS_EMPTY)
-								posicionsPossibles[nPosicions++] = newPos;
-							else if (m_tauler[i][j].getColor() != colorOrig)
-							{
-								perVisitar[Visitar] = newPos;
-							}
+							perVisitar[Visitar] = newPos;
+							Visitar++;
 						}
-
 					}
 				}
 			}
 		}
-		pos++;
-		newPos = perVisitar[pos];
+		pos++; //suma uno para hacer otra vuelta en el bucle
+
+		if (Visitar != 0)
+		{
+			newPos = perVisitar[bucle]; //edita newPos para visitar la pos con una fitxa de color dif
+			bucle++;
+		}
+		else
+			trobat = true;
 	}
 	setNPosicions(nPosicions);
 }
