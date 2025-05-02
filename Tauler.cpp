@@ -66,7 +66,11 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 	nPosicions = 0;
 	int pos = 0;
 	Posicio newPos = origen;
-
+	int columna = newPos.getColumna();
+	int fila = newPos.getFila();
+	ColorFitxa colorOrig = m_tauler[fila][columna].getColor();
+	Posicio perVisitar[MAX_MOVIMENTS];
+	int Visitar = 0;
 
 	while ((newPos.getColumna() <= 7 && newPos.getColumna() >= 0) && (newPos.getFila() <= 7 && newPos.getFila() >= 0))
 	{
@@ -74,19 +78,27 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 		{
 			for (int j = (newPos.getColumna()); i < N_COLUMNES; i += 2)
 			{
-				if (i < 8 && i> 0 && j < 8 && j>0)
+				if (i < 8 && i> 0 && j < 8 && j > 0)
 				{
 					if (m_tauler[i][j].getTipus() == TIPUS_EMPTY)
 					{
 						newPos.setPosicio(i, j);
 						if (!posicioExistent(newPos, nPosicions, posicionsPossibles))
-							posicionsPossibles[nPosicions++] = newPos;
+						{
+							if(m_tauler[i][j].getTipus() == TIPUS_EMPTY)
+								posicionsPossibles[nPosicions++] = newPos;
+							else if (m_tauler[i][j].getColor() != colorOrig)
+							{
+								perVisitar[Visitar] = newPos;
+							}
+						}
+
 					}
 				}
 			}
 		}
 		pos++;
-		newPos = posicionsPossibles[pos];
+		newPos = perVisitar[pos];
 	}
 	setNPosicions(nPosicions);
 }
@@ -111,8 +123,8 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 
 void Tauler::ToString(const string& nomFitxer, const Posicio& posicio)
 {
+	/*
 	ofstream fitxer(nomFitxer);
-	int fil = N_FILES;
 
 	for (int i = 0; i > N_COLUMNES; i--)
 	{
@@ -141,6 +153,31 @@ void Tauler::ToString(const string& nomFitxer, const Posicio& posicio)
 	
 
 	fitxer.close();
+	*/
+	for (int i = 0; i > N_COLUMNES; i--)
+	{
+		for (int j = 0; j < N_COLUMNES; j++)
+		{
+			cout << fil << ":" << ' ';
+			if (m_tauler[i][j].getTipus() == TIPUS_DAMA)
+			{
+				if (m_tauler[i][j].getColor() == COLOR_BLANC)
+					cout << 'D' << ' ';
+				else
+					cout << 'R' << ' ';
+			}
+			else if (m_tauler[i][j].getTipus() == TIPUS_NORMAL)
+			{
+				if (m_tauler[i][j].getColor() == COLOR_BLANC)
+					cout << 'O' << ' ';
+				else
+					cout << 'X' << ' ';
+			}
+			else
+				cout << "_" << ' ';
+
+		}
+	}
 }
 
 //void EscriuTauler
@@ -170,17 +207,5 @@ void Tauler::ToString(const string& nomFitxer, const Posicio& posicio)
 //		}
 //
 //		fitxer.close();
-//	}
-//}
-
-//int main()
-//{
-//	bool joc = true;
-//	int guanyador;
-//
-//	
-//	while (joc)
-//	{
-//
 //	}
 //}

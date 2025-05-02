@@ -38,6 +38,14 @@ A part de moure la peça de la posició origen a la posició destí ha de fer el seg
 	fer-ho o el moviment no ha matat el màxim de peces contràries possibles, bufar una peça del 
 	jugador (eliminar la peça del tauler) , seguint els criteris que s’han explicat a les regles del joc. 
 */
+	void eliminaFitxa(const Posicio& origen);
+	//elimina la fitxa del tauler
+
+	void toDama(const Posicio& origen);
+	//Comprova que la posicio introduida sigui la correcta per a convertir una fitxa en Dama
+
+
+
 	void ToString(const string& nomFitxer, const Posicio& posicio);
 	/*Genera un string amb l’estat actual del tauler de joc en el format que especifiquem a continuació
 	8: _ X _ D _ _ _ X 
@@ -54,7 +62,7 @@ A part de moure la peça de la posició origen a la posició destí ha de fer el seg
 private:
 	Fitxa m_tauler[N_FILES][N_COLUMNES];
 	int m_nPosicions;
-	Posicio posicionsPossibles[10];
+	Posicio m_posicionsPossibles[10];
 };
 
 //void escriuTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);
