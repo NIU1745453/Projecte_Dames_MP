@@ -25,10 +25,10 @@ typedef enum
 class Fitxa
 {
 public:
-	Fitxa() { m_tipus = TIPUS_EMPTY, m_color = CAP_COLOR, m_posicio.setPosicio(0, 0); 
+	Fitxa() { m_tipus = TIPUS_EMPTY, m_color = CAP_COLOR, m_posicio.setPosicio(0, 0), m_nValidas = 0; 
 	for (int i = 0; i < MAX_MOVIMENTS; i++)
 	{
-		m_movimentsValids[i].
+		m_movimentsValids[i] = Moviment();
 	}
 	}
 	Fitxa(TipusFitxa tipus, ColorFitxa color, int vert, int horit) { m_tipus = tipus, m_color = color, m_posicio.setPosicio(horit, vert); }
@@ -36,12 +36,16 @@ public:
 
 	int getPosVert() { return m_posicio.getColumna(); }
 	int getPosHorit() { return m_posicio.getFila(); }
+	Posicio getPosicio() { return m_posicio; }
+	int getnValidas() { return m_nValidas; }
 	TipusFitxa getTipus() { return m_tipus; }
 	ColorFitxa getColor() { return m_color; }
+	Moviment getMoviments(int i) { return m_movimentsValids[i]; }
 
 	void setPosFitxa(int vert, int horit) { m_posicio.setPosicio(vert, horit); }
 	void setTipus(TipusFitxa tipus) { m_tipus = tipus; }
 	void setColor(ColorFitxa color) { m_color = color; }
+	void setnValidas(int validas) { m_nValidas = validas; }
 
 	Moviment movimentsValids(Fitxa tauler[N_FILES][N_COLUMNES]) {};//encara no se que colocar aqui com a paramentres
 
@@ -50,4 +54,5 @@ private:
 	ColorFitxa m_color;
 	Posicio m_posicio;
 	Moviment m_movimentsValids[MAX_MOVIMENTS];
+	int m_nValidas;
 };
