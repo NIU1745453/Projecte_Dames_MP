@@ -1,7 +1,5 @@
 #include "posicio.hpp"
 
-const int N_FILES = 8;
-const int N_COLUMNES = 8;
 
 bool Posicio::operator==(const Posicio& posicio) const
 {
@@ -36,7 +34,7 @@ istream& operator>>(istream& fitxer, Posicio& posicio)
     return fitxer;
 
 }
-stringstream& operator<<(stringstream& fitxer, const Posicio& posicio)
+ostream& operator<<(ostream& fitxer, const Posicio& posicio)
 {
     string pos = posicio.toString();
     fitxer << pos;

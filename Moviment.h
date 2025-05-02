@@ -3,8 +3,7 @@
 
 #include "posicio.hpp"
 
-const int N_FILES = 8;
-const int N_COLUMNES = 8;
+
 const int MAX_PECES = 24;
 
 class Moviment

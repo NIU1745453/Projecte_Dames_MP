@@ -1,11 +1,8 @@
+using namespace std;
 #include <iostream>
 #include <string.h>
 #include <sstream>
-#include <iostream>
 #include <fstream>
-
-
-using namespace std;
 
 const int N_FILES = 8;
 const int N_COLUMNES = 8;
@@ -38,9 +35,9 @@ private:
     string m_posicio;
 };
 
-stringstream& operator>>(stringstream& fitxer, Posicio& posicio);
-//ofstream& operator<<(ofstream& fitxer, const Posicio& posicio);
-stringstream& operator<<(stringstream& fitxer, const Posicio& posicio);
+istream& operator>>(istream& fitxer, Posicio& posicio);
+ostream& operator<<(ostream& fitxer, const Posicio& posicio);
+//stringstream& operator<<(stringstream& fitxer, const Posicio& posicio);
 
 //void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio);
 //void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio);
