@@ -49,7 +49,7 @@ public:
 	void setColor(ColorFitxa color) { m_color = color; }
 	void setnValidas(int validas) { m_nValidas = validas; }
 
-	Moviment movimentsValids(Fitxa tauler[N_FILES][N_COLUMNES]) {};//encara no se que colocar aqui com a paramentres
+	//Moviment movimentsValids(Fitxa tauler[N_FILES][N_COLUMNES]) {};//encara no se que colocar aqui com a paramentres
 
 private:
 	TipusFitxa m_tipus;
