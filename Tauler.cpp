@@ -51,14 +51,55 @@ void Tauler::inicialitza(const string& nomFitxer)
 	}
 }
 
-//void Tauler::actualitzaMovimentsValids()
-//{
-//	int i;
-//	for (i = 0; i < 64; i++)
-//	{
-//
-//	}
-//}
+void Tauler::actualitzaMovimentsValids()
+{
+	int i = 0, x = 1;
+	int nPos, posVal;
+
+	Moviment movPendents[MAX_MOVIMENTS], movimentPendent[MAX_MOVIMENTS];
+	Moviment posValides[MAX_MOVIMENTS];
+	Moviment movimentActual[MAX_MOVIMENTS];
+	movPendents[0] = movimentActual;
+	Posicio posicioActual = posActual;
+
+	for (int y = 0; y < MAX_MOVIMENTS; y++)
+	{
+		movPendents[y].setMoviment('', y);
+		movimentPendent[y].setMoviment('', y);
+		posValides[y].setMoviment('', y);
+		movimentActual[y].setMoviment('', y);
+
+	}
+
+	Moviment movValids[MAX_MOVIMENTS]; //se le tendra q cambiar el nombre para adaptarlo a la actualizacion de moviment.h
+
+	do
+	{
+		movimentActual[0] = movPendents[i];
+		getPosicionsPossibles(posicioActual, nPos, posValides);
+
+		while (posValides != [] && x < MAX_MOVIMENTS)
+		{
+			movimentPendent = movimentActual;
+			movimentActual[x] = posValides[0];
+			for (int j = 0; j < nPos; j++)
+			{
+				movimentPendent[x] = posValides[j + 1];
+				movPendents[j] = movimentPendent;
+			}
+			posicioActual = movimentActual[x];
+			getPosicionsPossibles(posicioActual, nPos, posValides);
+			x++
+		}
+		x = 0;
+		if (movimentActual != [])
+			movValids[i] = movimentActual;
+
+		i++;
+
+	} while (movimentsPendents != [] && i < MAX_MOVIMENTS);
+
+}
 
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
@@ -120,56 +161,6 @@ bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio pos
 		}
 	}
 	return trobat;
-}
-
-void Tauler::actualitzaMovimentsValids()
-{
-	int i = 0, x = 1;
-	int nPos, posVal;
-
-	Moviment movPendents[MAX_MOVIMENTS], movimentPendent[MAX_MOVIMENTS];
-	Moviment posValides[MAX_MOVIMENTS];
-	Moviment movimentActual[MAX_MOVIMENTS];
-	movPendents[0] = movimentActual;
-	Posicio posicioActual = posActual;
-
-	for (int y = 0; y < MAX_MOVIMENTS; y++)
-	{
-		movPendents[y].setMoviment('', y);
-		movimentPendent[y].setMoviment('', y);
-		posValides[y].setMoviment('', y);
-		movimentActual[y].setMoviment('', y);
-
-	}
-
-	Moviment movValids[MAX_MOVIMENTS]; //se le tendra q cambiar el nombre para adaptarlo a la actualizacion de moviment.h
-
-	do
-	{
-		movimentActual[0] = movPendents[i];
-		getPosicionsPossibles(posicioActual, nPos, posValides);
-
-		while (posValides != [] && x < MAX_MOVIMENTS)
-		{
-			movimentPendent = movimentActual;
-			movimentActual[x] = posValides[0];
-			for (int j = 0; j < nPos; j++)
-			{
-				movimentPendent[x] = posValides[j + 1];
-				movPendents[j] = movimentPendent;
-			}
-			posicioActual = movimentActual[x];
-			getPosicionsPossibles(posicioActual, nPos, posValides);
-			x++
-		}
-		x = 0;
-		if (movimentActual != [])
-			movValids[i] = movimentActual;
-
-		i++;
-
-	} while (movimentsPendents != [] && i < MAX_MOVIMENTS);
-
 }
 
 //se tiene que repasar pq no estoy segura de que funcione bien del todo

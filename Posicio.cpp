@@ -1,5 +1,8 @@
 #include "posicio.hpp"
 
+const int N_FILES = 8;
+const int N_COLUMNES = 8;
+
 bool Posicio::operator==(const Posicio& posicio) const
 {
     bool iguals = false;
@@ -25,7 +28,7 @@ void Posicio::fromString(const string& pos)
 
 }
 
-stringstream& operator>>(stringstream& fitxer, Posicio& posicio)
+istream& operator>>(istream& fitxer, Posicio& posicio)
 {
     string pos;
     fitxer >> pos;
@@ -39,19 +42,19 @@ stringstream& operator<<(stringstream& fitxer, const Posicio& posicio)
     fitxer << pos;
     return fitxer;
 }
-
-void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio)
-{
-    ifstream fitxer(nomFitxer);
-    fitxer >> tipusFitxa;
-    fitxer >> posicio;
-    fitxer.close();
-}
-
-void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio)
-{
-    ofstream fitxer(nomFitxer);
-    fitxer << tipusFitxa << ' ';
-    fitxer << posicio;
-    fitxer.close();
-}
+//
+//void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio)
+//{
+//    ifstream fitxer(nomFitxer);
+//    fitxer >> tipusFitxa;
+//    fitxer >> posicio;
+//    fitxer.close();
+//}
+//
+//void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio)
+//{
+//    ofstream fitxer(nomFitxer);
+//    fitxer << tipusFitxa << ' ';
+//    fitxer << posicio;
+//    fitxer.close();
+//}
