@@ -28,12 +28,15 @@ string Moviment::camiViable(Posicio& posActual, Fitxa Tauler[N_FILES][N_COLUMNES
 				afegir movimentActual a movimentsValids
 		} while movimentsPendents != []*/
 }
-bool Moviment::mouFitxa(const Posicio& origen, const Posicio& desti, Fitxa m_tauler[N_FILES][N_COLUMNES])//no habia visto que son tipos posicio
+bool Moviment::mouFitxa(const Posicio& origen, const Posicio& desti, Fitxa m_tauler[N_FILES][N_COLUMNES])
 {
-	bool fet = false;
-	bool penalitzar = false;
+	bool fet = false;//si se puede hacer el movimiento
+	bool penalitzar = false;//si hay que bufarla
 
-	int muertas[12];
+	int muerta1;
+	int distancia;
+
+	int muerta2;
 
 	int i = 0;
 	int x = 0;
@@ -43,7 +46,7 @@ bool Moviment::mouFitxa(const Posicio& origen, const Posicio& desti, Fitxa m_tau
 	int direX;
 	int direY;
 
-	while (i < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && fet == false)
+	while (i < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && fet == false)//Mira si la posicion de salida se encuentra en algun camino de la poscion inicial
 	{
 		while (x < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() && fet == false)
 		{
@@ -72,11 +75,11 @@ bool Moviment::mouFitxa(const Posicio& origen, const Posicio& desti, Fitxa m_tau
 		//mira cuando el movimiento seleccionado se mueve unicamente 1 espacio si ese es el movimiento optimo
 		if ((m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getPosicio() &&
 			m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY) ||
-			m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getPosicio() &&
+			(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getPosicio() &&
 			m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY) ||
-			m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio() &&
+			(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio() &&
 			m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY ) ||
-			m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getPosicio() &&
+			(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getPosicio() &&
 			m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY))
 		{
 			while (y < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)
@@ -141,10 +144,18 @@ bool Moviment::mouFitxa(const Posicio& origen, const Posicio& desti, Fitxa m_tau
 				{
 					direX = 1;
 				}
-				m_tauler[origen.getFila() + direX][origen.getColumna() + direY] = Fitxa();
+				m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() + direX][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() + direY] = Fitxa();
 			}
 		}
 
+		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() - 1).getColumna() == 0 && direY = -1)
+		{
+			m_tauler[origen.getFila()][origen.getColumna()].setTipus(TIPUS_DAMA);
+		}
+		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() - 1).getColumna() == 7 && direY = 1)
+		{
+			m_tauler[origen.getFila()][origen.getColumna()].setTipus(TIPUS_DAMA);
+		}
 
 		if (penalitzar = true)//si ha hecho el movimiento optimo lo elimina
 		{
@@ -162,13 +173,121 @@ bool Moviment::mouFitxa(const Posicio& origen, const Posicio& desti, Fitxa m_tau
 
 	if (fet && m_tauler[origen.getFila()][origen.getColumna()].getTipus() == TIPUS_DAMA)//lo mismo que el anterior pero para el tipo dama
 	{
-		while (j < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)
+		if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() > 0)//Mira si se mueve hacia la izquierda
 		{
-			while (x < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getnMoviment() && penalitzar == false)
+			direX = -1
+		}
+		else//mira si se mueve hacia la derecha
+		{
+			direX = 1;
+		}
+		if (m_tauler[origen.getFila()][origen.getColumna()].getPosVert() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() > 0)//abajo
+		{
+			direY = -1
+		}
+		else//arriba
+		{
+			direY = 1;
+		}
+		distancia = m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila();
+
+		if (distacia == 2 || distancia == -2)
+		{
+			muerta1++;
+			m_tauler[origen.getFila() + direX][origen.getColumna() + direY] = Fitxa();
+
+		}
+
+		for(j=0;j < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment()-1;j++) 
+		{
+			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
 			{
-				if ()
+				direX = -1
+			}
+			else//mira si se mueve hacia la derecha
+			{
+				direX = 1;
+			}
+			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getColumna() > 0)//Abajo
+			{
+				direY = -1
+			}
+			else//arriba
+			{
+				direY = 1;
+			}
+			distancia = m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila();
+
+
+			if (distancia == 2 || distancia == -2)
+			{
+				muerta1++;
+				m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() + direX][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() + direY] = Fitxa();
 			}
 		}
+		
+		
+		while (y < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)//mira si se ha elegido el camino optimo
+		{
+			if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() > 0)//Mira si se mueve hacia la izquierda
+			{
+				direX = -1
+			}
+			else//mira si se mueve hacia la derecha
+			{
+				direX = 1;
+			}
+			if (m_tauler[origen.getFila()][origen.getColumna()].getPosVert() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getColumna() > 0)//abajo
+			{
+				direY = -1
+			}
+			else//arriba
+			{
+				direY = 1;
+			}
+			distancia = m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila();
+
+			if (distacia == 2 || distancia == -2)
+			{
+				muerta2++;
+
+			}
+			while (j < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getnMoviment()-1 && penalitzar == false)
+			{
+				if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
+				{
+					direX = -1
+				}
+				else//mira si se mueve hacia la derecha
+				{
+					direX = 1;
+				}
+				if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getColumna() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getColumna() > 0)//Abajo
+				{
+					direY = -1
+				}
+				else//arriba
+				{
+					direY = 1;
+				}
+				distancia = m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getFila();
+
+
+				if (distancia == 2 || distancia == -2)
+				{
+					muerta1++;
+				}
+				if (muerta2 > muerta1)
+				{
+					penalitzar = true;
+				}
+				j++;
+			}
+			j = 0;
+			muerta2 = 0;
+			y++;
+		}
+
 
 		if (penalitzar = true)
 		{
