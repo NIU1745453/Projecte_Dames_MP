@@ -52,74 +52,68 @@ void Tauler::inicialitza(const string& nomFitxer)
 
 void Tauler::actualitzaMovimentsValids()
 {
-	int i = 0;
 	int nPos;
-
-	// Arrays de movimientos
 	Moviment movPendents[MAX_MOVIMENTS];
 	Moviment movimentPendent;
 	Posicio posValides[MAX_MOVIMENTS];
-	Posicio posicioActual;
-	posicioActual = posicioActual.getPosicio();
 	Moviment movimentActual;
 	Moviment movimentsValids[MAX_MOVIMENTS];
-
-	for (int y = 0; y < MAX_MOVIMENTS; y++) {
-		movPendents[y].setMoviment("", y);
-		posValides[y].setPosicio("");
-		movimentsValids[y].setMoviment("", y);
-	}
-
-	movimentActual.setMoviment("", 0);
-	int nPosicions = 0;
-	movimentActual.setnMoviment(nPosicions);
-
-	// Añadirlo a pendientes
-	movPendents[0] = movimentActual;
-	int nPendents = 1;
+	int nPendents = 0;
 	int nValids = 0;
 
-	// Bucle principal para procesar movimientos pendientes
-	while (nPendents > 0) {
-		// Tomar el primer movimiento pendiente
-		movimentActual = movPendents[0];
+	for (int fila = 0; fila < N_FILES; fila++)
+	{
+		for (int col = 0; col < N_COLUMNES; col++)
+		{
+			if (m_tauler[fila][col].getTipus() != TIPUS_EMPTY)
+			{
+				Posicio posInicial(fila, col);
+				movimentActual.setMoviment(posInicial.getPosicio(), 0);
+				movimentActual.setnMoviment(1);
+				movPendents[0] = movimentActual;
+				nPendents = 1;
 
-		// Desplazar el resto de los movimientos pendientes hacia adelante
-		for (int j = 0; j < nPendents - 1; j++) {
-			movPendents[j] = movPendents[j + 1];
-		}
-		nPendents--;
+				while (nPendents > 0)
+				{
+					movimentActual = movPendents[0];
 
-		// Obtener posiciones posibles desde la posición actual
-		getPosicionsPossibles(posicioActual, nPos, posValides);
+					for (int j = 0; j < nPendents - 1; j++)
+						movPendents[j] = movPendents[j + 1];
+					nPendents--;
 
-		if (nPos > 0) {
-			// Añadir primera posición válida al movimiento actual
-			movimentActual.setMoviment(posValides[0].getPosicio(), movimentActual.getnMoviment());
-			nPosicions++;
-			movimentActual.setnMoviment(nPosicions);
+					int ultPos = movimentActual.getnMoviment() - 1;
+					Posicio posicioActual;
+					posicioActual = movimentActual.getMoviment(ultPos);
 
-			// Para las demás posiciones válidas
-			for (int k = 1; k < nPos; k++) {
-				movimentPendent = movimentActual;
-				movimentPendent.setMoviment(posValides[k].getPosicio(), (movimentActual.getnMoviment() - 1));
-				// Añadir el movimiento pendiente a la lista si no se excede el límite
-				if (nPendents < MAX_MOVIMENTS)
-					movPendents[nPendents++] = movimentPendent;
-			}
+					getPosicionsPossibles(posicioActual, nPos, posValides);
 
-			// Volver a poner el movimiento actual en pendientes, si no excede el límite
-			if (nPendents < MAX_MOVIMENTS)
-				movPendents[nPendents++] = movimentActual;
-		}
-		else {
-			// Si no hay posiciones válidas y el movimiento tiene más de una posición
-			if (movimentActual.getnMoviment() > 1) {
-				if (nValids < MAX_MOVIMENTS)
-					movimentsValids[nValids++] = movimentActual;
+					if (nPos > 0)
+					{
+						for (int i = 0; i < nPos; i++)
+						{
+							Moviment nouMoviment = movimentActual;
+							int nMov = nouMoviment.getnMoviment();
+							nouMoviment.setMoviment(posValides[i].getPosicio(), nMov);
+							nouMoviment.setnMoviment(nMov + 1);
+
+							if (nPendents < MAX_MOVIMENTS)
+								movPendents[nPendents++] = nouMoviment;
+						}
+					}
+					else
+					{
+						if (movimentActual.getnMoviment() > 1)
+						{
+							if (nValids < MAX_MOVIMENTS)
+								movimentsValids[nValids++] = movimentActual;
+						}
+					}
+				}
 			}
 		}
 	}
+
+	setNPosicions(nValids);
 }
 
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
@@ -618,7 +612,7 @@ string Tauler::toString() const
 
 	for(int i = 0; i < N_COLUMNES ; i++)
 	{
-		pos = 'A' + i;
+		pos = 'a' + i;
 		sortida += " " + pos;
 	}
 
