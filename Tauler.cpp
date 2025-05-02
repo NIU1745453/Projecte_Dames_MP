@@ -1,4 +1,4 @@
-#include "Tauler.h"
+#include "tauler.hpp"
 #include <fstream>
 
 void Tauler::inicialitza(const string& nomFitxer)
@@ -122,10 +122,8 @@ bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio pos
 	return trobat;
 }
 
-//se tiene que repasar pq no estoy segura de que funcione bien del todo
-Moviment Tauler::camiViable(Posicio& posActual)
+void Tauler::actualitzaMovimentsValids()
 {
-	//ALGORISME PER MIRAR ELS MOVIMENTS QUE ES PODEN FER
 	int i = 0, x = 1;
 	int nPos, posVal;
 
@@ -172,33 +170,85 @@ Moviment Tauler::camiViable(Posicio& posActual)
 
 	} while (movimentsPendents != [] && i < MAX_MOVIMENTS);
 
-	return movValids;
-
-
-	/*movimentsValids = []
-		movimentsPendents = []
-		movimentActual = []
-		afegir movimentActual a movimentsPendents
-		posicioActual = posicio de la Fitxa
-		do
-		{
-			movimentActual = primer element de movimentsPendents
-			posValides = PosicionsValides(posicioActual)
-			while (posValides != [])
-			{
-			afegir a movimentActual la primera posicio valida
-				per la resta de posicions valides
-				movimentPendent = duplicaMoviment(movimentActual)
-				afegir la posicio a movimentPendent
-				afegir movimentPendent a movimentsPendents
-				posicioActual = primera posicio valida
-				posValides = PosicionsValides(posicioActual)
-			}
-			if (movimentActual != [])
-				afegir movimentActual a movimentsValids
-		} while movimentsPendents != []*/
-
 }
+
+//se tiene que repasar pq no estoy segura de que funcione bien del todo
+//Moviment Tauler::camiViable(Posicio& posActual)
+//{
+//	//ALGORISME PER MIRAR ELS MOVIMENTS QUE ES PODEN FER
+//	int i = 0, x = 1;
+//	int nPos, posVal;
+//
+//	Moviment movPendents[MAX_MOVIMENTS], movimentPendent[MAX_MOVIMENTS];
+//	Moviment posValides[MAX_MOVIMENTS];
+//	Moviment movimentActual[MAX_MOVIMENTS];
+//	movPendents[0] = movimentActual;
+//	Posicio posicioActual = posActual;
+//
+//	for (int y = 0; y < MAX_MOVIMENTS; y++)
+//	{
+//		movPendents[y].setMoviment('', y);
+//		movimentPendent[y].setMoviment('', y);
+//		posValides[y].setMoviment('', y);
+//		movimentActual[y].setMoviment('', y);
+//
+//	}
+//
+//	Moviment movValids[MAX_MOVIMENTS]; //se le tendra q cambiar el nombre para adaptarlo a la actualizacion de moviment.h
+//
+//	do
+//	{
+//		movimentActual[0] = movPendents[i];
+//		getPosicionsPossibles(posicioActual, nPos, posValides);
+//
+//		while (posValides != [] && x < MAX_MOVIMENTS)
+//		{
+//			movimentPendent = movimentActual;
+//			movimentActual[x] = posValides[0];
+//			for (int j = 0; j < nPos; j++)
+//			{
+//				movimentPendent[x] = posValides[j + 1];
+//				movPendents[j] = movimentPendent;
+//			}
+//			posicioActual = movimentActual[x];
+//			getPosicionsPossibles(posicioActual, nPos, posValides);
+//			x++
+//		}
+//		x = 0;
+//		if (movimentActual != [])
+//			movValids[i] = movimentActual;
+//
+//		i++;
+//
+//	} while (movimentsPendents != [] && i < MAX_MOVIMENTS);
+//
+//	return movValids;
+//
+//
+//	/*movimentsValids = []
+//		movimentsPendents = []
+//		movimentActual = []
+//		afegir movimentActual a movimentsPendents
+//		posicioActual = posicio de la Fitxa
+//		do
+//		{
+//			movimentActual = primer element de movimentsPendents
+//			posValides = PosicionsValides(posicioActual)
+//			while (posValides != [])
+//			{
+//			afegir a movimentActual la primera posicio valida
+//				per la resta de posicions valides
+//				movimentPendent = duplicaMoviment(movimentActual)
+//				afegir la posicio a movimentPendent
+//				afegir movimentPendent a movimentsPendents
+//				posicioActual = primera posicio valida
+//				posValides = PosicionsValides(posicioActual)
+//			}
+//			if (movimentActual != [])
+//				afegir movimentActual a movimentsValids
+//		} while movimentsPendents != []*/
+//
+//}
 
 bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 {
