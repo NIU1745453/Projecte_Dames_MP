@@ -1,4 +1,5 @@
-#include "Posicio.h"
+#include "posicio.hpp"
+
 
 bool Posicio::operator==(const Posicio& posicio) const
 {
@@ -25,7 +26,7 @@ void Posicio::fromString(const string& pos)
 
 }
 
-ifstream& operator>>(ifstream& fitxer, Posicio& posicio)
+istream& operator>>(istream& fitxer, Posicio& posicio)
 {
     string pos;
     fitxer >> pos;
@@ -33,25 +34,25 @@ ifstream& operator>>(ifstream& fitxer, Posicio& posicio)
     return fitxer;
 
 }
-ofstream& operator<<(ofstream& fitxer, const Posicio& posicio)
+ostream& operator<<(ostream& fitxer, const Posicio& posicio)
 {
     string pos = posicio.toString();
     fitxer << pos;
     return fitxer;
 }
-
-void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio)
-{
-    ifstream fitxer(nomFitxer);
-    fitxer >> tipusFitxa;
-    fitxer >> posicio;
-    fitxer.close();
-}
-
-void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio)
-{
-    ofstream fitxer(nomFitxer);
-    fitxer << tipusFitxa << ' ';
-    fitxer << posicio;
-    fitxer.close();
-}
+//
+//void llegeixFitxa(const string& nomFitxer, char& tipusFitxa, Posicio& posicio)
+//{
+//    ifstream fitxer(nomFitxer);
+//    fitxer >> tipusFitxa;
+//    fitxer >> posicio;
+//    fitxer.close();
+//}
+//
+//void escriuFitxa(const string& nomFitxer, char tipusFitxa, const Posicio& posicio)
+//{
+//    ofstream fitxer(nomFitxer);
+//    fitxer << tipusFitxa << ' ';
+//    fitxer << posicio;
+//    fitxer.close();
+//}

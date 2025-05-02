@@ -1,25 +1,32 @@
-#include <iostream>
-#include <string>
-#include "Posicio.h"
+#ifndef MOVIMENT_H_
+	#define MOVIMENT_H_
+
+#include "posicio.hpp"
+
 
 const int MAX_PECES = 24;
 
 class Moviment
 {
 public:
-	Moviment() { m_posicio = Posicio(); }
-	Moviment(string mov) { m_posicio = Posicio(mov); }
+	Moviment() {
+		for (int i = 0; i < 50; i++)
+		{
+			m_posicio[i] = Posicio();
+		}
+		m_nPosicio = 0;
+	}
 
-	string getMoviment() const { return m_posicio.getPosicio(); }
+	Posicio getMoviment(int i) const { return m_posicio[i]; }
+	int getnMoviment() { return m_nPosicio; }
 
-	void setMoviment(string mov) { m_posicio.setPosicio(mov); }
+	void setMoviment(string mov, int i) { m_posicio[i].setPosicio(mov); }
+	void setnMoviment(int i) { m_nPosicio = i; }
 
-	bool compatible(Posicio posicio); //mirara si el moviment que mira es pot fer o no,
-													// en cas de que es pugui fer el mov, l'haura de guardar per
-													//tal de poderlo tenir en l'array moviments possibles
-
-	string camiViable(Posicio& posActual);
 
 private:
-	Posicio m_posicio;//tiene variable fila, columna y string
+	Posicio m_posicio[50];//tiene variable fila, columna y string
+	int m_nPosicio;
 };
+
+#endif 
