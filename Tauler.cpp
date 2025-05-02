@@ -170,8 +170,8 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 				}
 				if (m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY)
 				{
-					posicionsPossibles[nPosicions].setPosicio m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio().getPosicio());
-					mirar[mir].setPosicio m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio().getPosicio());
+					posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio().getPosicio());
+					mirar[mir].setPosicio (m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio().getPosicio());
 					mir++;
 					nPosicions++;
 				}
