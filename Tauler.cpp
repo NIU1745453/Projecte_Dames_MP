@@ -1,19 +1,11 @@
 #include "tauler.hpp"
-#include "posicio.hpp"
+//#include "posicio.hpp"
 void Tauler::inicialitza(const string& nomFitxer)
 {
 	ifstream fitxer;
 	fitxer.open(nomFitxer);
 
-	for (int i = 0; i < N_FILES; i++)
-	{
-		for (int j = 0; j < N_COLUMNES; j++)
-		{
-			m_tauler[i][j].setTipus(TIPUS_EMPTY);
-		}
-	}
-
-	if (fitxer.is_open()) // no se abre el fixero
+	if (fitxer.is_open())
 	{
 		string line; //conte le linia completa
 		string posFitxa; //conte només la posicio
@@ -21,6 +13,7 @@ void Tauler::inicialitza(const string& nomFitxer)
 		Posicio pos;
 		int fila;
 		int columna;
+
 
 		while (getline(fitxer, line)) //el fitxer.eof dona sempre bucle inf. per tant hem usat una variable
 		{
@@ -31,18 +24,25 @@ void Tauler::inicialitza(const string& nomFitxer)
 				pos.fromString(posFitxa);
 				fila = pos.getFila();
 				columna = pos.getColumna();
+				TipusFitxa type;
+				ColorFitxa color;
 
-				//identifiquem el tipus de la fitxa
-				if (tipusFitxa == 'D' || tipusFitxa == 'R')
-					m_tauler[fila][columna].setTipus(TIPUS_DAMA);
-				else
-					m_tauler[fila][columna].setTipus(TIPUS_NORMAL);
+				if(fila >= 0 && fila < N_FILES && columna >= 0 && columna < N_COLUMNES)
+				{
+					//identifiquem el tipus de la fitxa
+					if (tipusFitxa == 'D' || tipusFitxa == 'R')
+						type = TIPUS_DAMA;
+					else
+						type = TIPUS_NORMAL;
 
-				//identigiquem el color de la fitxa
-				if (tipusFitxa == 'D' || tipusFitxa == 'O')
-					m_tauler[fila][columna].setColor(COLOR_BLANC);
-				else
-					m_tauler[fila][columna].setColor(COLOR_NEGRE);
+					//identigiquem el color de la fitxa
+					if (tipusFitxa == 'D' || tipusFitxa == 'O')
+						color = COLOR_BLANC;
+					else
+						color = COLOR_NEGRE;
+
+					m_tauler[fila][columna].setFitxa(type, color, columna, fila);
+				}
 
 			}
 		}
@@ -126,239 +126,205 @@ void Tauler::actualitzaMovimentsValids()
 	setNPosicions(nValids);
 }
 
-
+//falta TIPUS_DAMA
 void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
+	int fila = origen.getFila();
+	int columna = origen.getColumna();
+	nPosicions = 0;
+	int posValides = 1;
+	int uno = 1;
+	TipusFitxa tipus = m_tauler[fila][columna].getTipus();
+	ColorFitxa color = m_tauler[fila][columna].getColor();
+	/*
+	El codi pot ser simplificat a base d'agefir funcions 
+	Blan i negre son igual nomes canvia si puja o baixa del tauler (SOLO CAMBIA FILA)
+	*/
 
-
-		bool seguir = true;
-		int diferencia = 0;
-		Posicio mirar[30];
-		int mir = 0;
-		int i = 0;
-
-		if (m_tauler[origen.getFila()][origen.getColumna()].getTipus() == TIPUS_NORMAL)
-		{
-			if (m_tauler[origen.getFila()][origen.getColumna()].getColor() == COLOR_BLANC)
-			{
-				if ((m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_NORMAL || m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_DAMA) && m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getColor() == COLOR_NEGRE)
-				{
-					if (m_tauler[origen.getFila() + 2][origen.getColumna() + 2].getTipus() == TIPUS_EMPTY)
-					{
-						posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() + 2][origen.getColumna() + 2].getPosicio().getPosicio());
-						mirar[mir].setPosicio( m_tauler[origen.getFila() + 2][origen.getColumna() + 2].getPosicio().getPosicio());
-						mir++;
-						nPosicions++;
-					}
-				}
-				if (m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY)
-				{
-					posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getPosicio().getPosicio());
-					mirar[mir].setPosicio( m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getPosicio().getPosicio());
-					mir++;
-					nPosicions++;
-				}
-				if ((m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_NORMAL || m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_DAMA) && m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getColor() == COLOR_NEGRE)
-				{
-					if (m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getTipus() == TIPUS_EMPTY)
-					{
-						posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getPosicio().getPosicio());
-						mirar[mir].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getPosicio().getPosicio());
-						mir++;
-						nPosicions++;
-					}
-				}
-				if (m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY)
-				{
-					posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio().getPosicio());
-					mirar[mir].setPosicio (m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio().getPosicio());
-					mir++;
-					nPosicions++;
-				}
-				if (nPosicions == 0)
-				{
-					seguir = false;
-				}
-
-				while (seguir)
-				{
-					if ((m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() + 1].getTipus() == TIPUS_NORMAL || m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() + 1].getTipus() == TIPUS_DAMA) && m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() + 1].getColor() == COLOR_NEGRE)
-					{
-						if (m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() + 2].getTipus() == TIPUS_EMPTY)
-						{
-							posicionsPossibles[nPosicions].setPosicio( m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
-							mirar[mir].setPosicio( m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
-							mir++;
-							nPosicions++;
-						}
-					}
-					if ((m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() + 1].getTipus() == TIPUS_NORMAL || m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() + 1].getTipus() == TIPUS_DAMA) && m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() + 1].getColor() == COLOR_NEGRE)
-					{
-						if (m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() + 2].getTipus() == TIPUS_EMPTY)
-						{
-							posicionsPossibles[nPosicions].setPosicio( m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
-							mirar[mir].setPosicio( m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
-							mir++;
-							nPosicions++;
-						}
-					}
-					for (int x = 0; x < mir - 1; x++)
-					{
-						mirar[x] = mirar[x + 1];
-					}
-					mir--;
-					if (mir == 0)
-					{
-						seguir = false;
-					}
-				}
-			}
-			else//para las negras
-			{
-				if ((m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_NORMAL || m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_DAMA) && m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getColor() == COLOR_BLANC)
-				{
-					if (m_tauler[origen.getFila() + 2][origen.getColumna() - 2].getTipus() == TIPUS_EMPTY)
-					{
-						posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() + 2][origen.getColumna() - 2].getPosicio().getPosicio());
-						mirar[mir].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getPosicio().getPosicio());
-						mir++;
-						nPosicions++;
-					}
-				}
-				if (m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY)
-				{
-					posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getPosicio().getPosicio());
-					mirar[mir].setPosicio( m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getPosicio().getPosicio());
-					mir++;
-					nPosicions++;
-				}
-				if ((m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_NORMAL || m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_DAMA) && m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getColor() == COLOR_BLANC)
-				{
-					if (m_tauler[origen.getFila() - 2][origen.getColumna() - 2].getTipus() == TIPUS_EMPTY)
-					{
-						posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() - 2].getPosicio().getPosicio());
-						mirar[mir].setPosicio( m_tauler[origen.getFila() - 2][origen.getColumna() - 2].getPosicio().getPosicio());
-						mir++;
-						nPosicions++;
-					}
-				}
-				if (m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY)
-				{
-					posicionsPossibles[nPosicions].setPosicio( m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getPosicio().getPosicio());
-					mirar[mir].setPosicio( m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getPosicio().getPosicio());
-					mir++;
-					nPosicions++;
-				}
-				if (nPosicions == 0)
-				{
-					seguir = false;
-				}
-
-				while (seguir)
-				{
-					if ((m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() - 1].getTipus() == TIPUS_NORMAL || m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() - 1].getTipus() == TIPUS_DAMA) && m_tauler[mirar[i].getFila() + 1][mirar[i].getColumna() - 1].getColor() == COLOR_BLANC)
-					{
-						if (m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() - 2].getTipus() == TIPUS_EMPTY)
-						{
-							posicionsPossibles[nPosicions].setPosicio( m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() - 2].getPosicio().getPosicio());
-							mirar[mir].setPosicio( m_tauler[mirar[i].getFila() + 2][mirar[i].getColumna() + 2].getPosicio().getPosicio());
-							mir++;
-							nPosicions++;
-						}
-					}
-					if ((m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() - 1].getTipus() == TIPUS_NORMAL || m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() - 1].getTipus() == TIPUS_DAMA) && m_tauler[mirar[i].getFila() - 1][mirar[i].getColumna() - 1].getColor() == COLOR_BLANC)
-					{
-						if (m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() - 2].getTipus() == TIPUS_EMPTY)
-						{
-
-							posicionsPossibles[nPosicions].setPosicio( m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() - 2].getPosicio().getPosicio());
-							mirar[mir].setPosicio( m_tauler[mirar[i].getFila() - 2][mirar[i].getColumna() - 2].getPosicio().getPosicio());
-							mir++;
-							nPosicions++;
-						}
-					}
-					for (int x = 0; x < mir - 1; x++)
-					{
-						mirar[x] = mirar[x + 1];
-					}
-					mir--;
-					if (mir == 0)
-					{
-						seguir = false;
-					}
-				}
-			}
-		}
-		else//para las dadms
-		{
-
-		}
-	
-
-
-
-
-	/*nPosicions = 0;
-	int pos = 0;
-	Posicio newPos = origen;
-	int columna = newPos.getColumna();
-	int fila = newPos.getFila();
-	ColorFitxa colorOrig = m_tauler[fila][columna].getColor();
-	Posicio perVisitar[MAX_MOVIMENTS];
-	int Visitar = 0, bucle = 0;
-	bool trobat = false;
-
-	// Diagonal directions: (-1, -1), (-1, +1), (+1, -1), (+1, +1)
-	int deltaFila[4] = { -1, -1, 1, 1 };
-	int deltaCol[4] = { -1,  1, -1, 1 };
-
-	while (pos < MAX_MOVIMENTS && !trobat)
+	switch (tipus)
 	{
-		for (int d = 0; d < 4; ++d)
+	case TIPUS_NORMAL:
+		//me podria deshacer de este case interno y haces el codigo mucho mas corto
+		switch (color)
 		{
-			int i = newPos.getFila() + deltaFila[d];
-			int j = newPos.getColumna() + deltaCol[d];
-
-			if (i >= 0 && i < N_FILES && j >= 0 && j < N_COLUMNES)
+		case COLOR_BLANC:
+			if ((fila > 0 && fila < 8) && (columna > 0 && columna < 8))
 			{
-				newPos.setPosicio(i, j);
-
-				if ((colorOrig == COLOR_BLANC && i < origen.getFila()) || (colorOrig == COLOR_NEGRE && i > origen.getFila()))
+				switch (columna)
 				{
-					if (!posicioExistent(newPos, nPosicions, posicionsPossibles))
+				case 0:
+				case 7:
+					
+					if (columna == 7)
+						uno = -1;
+					if (m_tauler[fila - 1][columna + uno].getColor() == CAP_COLOR)
 					{
-						if (pos < Visitar)
+						posicionsPossibles[nPosicions] = m_tauler[fila - 1][columna + 1].getPosicio();
+						nPosicions++;
+					}
+					if (m_tauler[fila - 1][columna + uno].getColor() == COLOR_NEGRE)
+					{
+						uno = uno * 2;
+						if (m_tauler[fila - 2][columna].getColor() == CAP_COLOR)
 						{
-							columna = perVisitar[pos].getColumna();
-							fila = perVisitar[pos].getFila();
+							posicionsPossibles[nPosicions] = m_tauler[fila - 2][columna ].getPosicio();
+							nPosicions++;
 						}
-
-						if (m_tauler[i][j].getTipus() == TIPUS_EMPTY)
+						if (m_tauler[fila - 2][columna + uno].getColor() == CAP_COLOR)
 						{
-							posicionsPossibles[nPosicions++] = newPos;
-						}
-						else if (m_tauler[i][j].getColor() != colorOrig
-							&& (pos >= Visitar || m_tauler[fila][columna].getColor() != m_tauler[i][j].getColor()))
-						{
-							perVisitar[Visitar++] = newPos;
+							posicionsPossibles[nPosicions] = m_tauler[fila - 2][columna + uno].getPosicio();
+							nPosicions++;
 						}
 					}
+					break;
+				case 1 || 6:
+					int newFila = fila-1;
+					int newColumna = columna + 1;
+					//mirem si son buides
+					ColorFitxa newColor = m_tauler[newFila][newColumna].getColor();
+
+					if (newColor == CAP_COLOR)
+					{
+						posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
+						nPosicions++;
+					}
+					else if (newColor == COLOR_NEGRE)
+					{
+						newFila--;
+						if (columna != 6)
+						{
+							if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
+							{
+								posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
+								nPosicions++;
+							}
+							if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
+							{
+								posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
+								nPosicions++;
+							}
+						}
+					}
+
+					newColor = m_tauler[newFila][columna - 1].getColor();
+					newColumna = columna - 1;
+					if (newColor == CAP_COLOR)
+					{
+						posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
+						nPosicions++;
+					}
+					else if (newColor == COLOR_NEGRE)
+					{
+						newFila--;
+						if (columna != 1)
+						{
+							if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
+							{
+								posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
+								nPosicions++;
+							}
+							if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
+							{
+								posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
+								nPosicions++;
+							}
+						}
+					}
+					break;
 				}
 			}
-		}
+			break;
+		case COLOR_NEGRE:
+			if ((fila > 0 && fila < 8) && (columna > 0 && columna < 8))
+			{
+				switch (columna)
+				{
+				case 0:
+				case 7:
+					if (columna == 7)
+						uno = -1;
+					if (m_tauler[fila - 1][columna + uno].getColor() == CAP_COLOR)
+					{
+						posicionsPossibles[nPosicions] = m_tauler[fila - 1][columna + 1].getPosicio();
+						nPosicions++;
+					}
+					if (m_tauler[fila - 1][columna + uno].getColor() == COLOR_BLANC)
+					{
+						uno = uno * 2;
+						if (m_tauler[fila - 2][columna].getColor() == CAP_COLOR)
+						{
+							posicionsPossibles[nPosicions] = m_tauler[fila - 2][columna].getPosicio();
+							nPosicions++;
+						}
+						if (m_tauler[fila - 2][columna + uno].getColor() == CAP_COLOR)
+						{
+							posicionsPossibles[nPosicions] = m_tauler[fila - 2][columna + uno].getPosicio();
+							nPosicions++;
+						}
+					}
+					break;
+				case 1 || 6:
+					int newFila = fila + 1;
+					int newColumna = columna + 1;
+					//mirem si son buides
+					ColorFitxa newColor = m_tauler[newFila][newColumna].getColor();
 
-		pos++;
+					if (newColor == CAP_COLOR)
+					{
+						posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
+						nPosicions++;
+					}
+					else if (newColor == COLOR_BLANC)
+					{
+						newFila++;
+						if (columna != 6)
+						{
+							if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
+							{
+								posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
+								nPosicions++;
+							}
+							if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
+							{
+								posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
+								nPosicions++;
+							}
+						}
+					}
 
-		if (Visitar != 0 && bucle < Visitar)
-		{
-			newPos = perVisitar[bucle];
-			bucle++;
+					newColor = m_tauler[newFila][columna - 1].getColor();
+					newColumna = columna - 1;
+					if (newColor == CAP_COLOR)
+					{
+						posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
+						nPosicions++;
+					}
+					else if (newColor == COLOR_BLANC)
+					{
+						newFila++;
+						if (columna != 1)
+						{
+							if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
+							{
+								posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
+								nPosicions++;
+							}
+							if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
+							{
+								posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
+								nPosicions++;
+							}
+						}
+					}
+					break;
+				}
+			}
+			break;
 		}
-		else
-			trobat = true;
+		break;
+	case TIPUS_DAMA:
+		break;
 	}
-
-	setNPosicions(nPosicions);*/
 }
 
 
@@ -454,284 +420,285 @@ bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio pos
 //
 //}
 
+//bufar per no fer el millor mov en general
+//meja mes fitxes, mes dames, mes punts
 
 bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 {
-	bool fet = false;//si se puede hacer el movimiento
-	bool penalitzar = false;//si hay que bufarla
+	//bool fet = false;//si se puede hacer el movimiento
+	//bool penalitzar = false;//si hay que bufarla
 
-	int muerta1=0;
-	int distancia;
+	//int muerta1=0;
+	//int distancia;
 
-	int muerta2=0;
+	//int muerta2=0;
 
-	int i = 0;
-	int x = 0;
-	int j = 0;
-	int y = 0;
+	//int i = 0;
+	//int x = 0;
+	//int j = 0;
+	//int y = 0;
 
-	int direX;
-	int direY;
+	//int direX;
+	//int direY;
 
-	while (i < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && fet == false)//Mira si la posicion de salida se encuentra en algun camino de la poscion inicial
-	{
-		while (x < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() && fet == false)
-		{
-			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x) == desti)
-			{
-				fet = true;
-			}
-			else
-			{
-				x++;
-			}
-		}
-		if (fet = false)
-		{
-			i++;
-			x = 0;
-		}
-	}
+	//while (i < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && fet == false)//Mira si la posicion de salida se encuentra en algun camino de la poscion inicial
+	//{
+	//	while (x < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() && fet == false)
+	//	{
+	//		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x) == desti)
+	//		{
+	//			fet = true;
+	//		}
+	//		else
+	//		{
+	//			x++;
+	//		}
+	//	}
+	//	if (fet = false)
+	//	{
+	//		i++;
+	//		x = 0;
+	//	}
+	//}
 
-	if (fet && m_tauler[origen.getFila()][origen.getColumna()].getTipus() == TIPUS_NORMAL)
-	{
-		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() - 1 != x)//no hace el camino completo
-		{
-			penalitzar = true;
-		}
-		//mira cuando el movimiento seleccionado se mueve unicamente 1 espacio si ese es el movimiento optimo
-		if ((m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getPosicio() &&
-			m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY) ||
-			(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getPosicio() &&
-				m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY) ||
-			(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio() &&
-				m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY) ||
-			(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getPosicio() &&
-				m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY))
-		{
-			while (y < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)
-			{
-				if ((m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j) == m_tauler[origen.getFila() + 2][origen.getColumna() + 2].getPosicio()  || 
-					m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j) == m_tauler[origen.getFila() - 2][origen.getColumna() - 2].getPosicio()  ||
-					m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j) == m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getPosicio()  ||
-					m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j) == m_tauler[origen.getFila() + 2][origen.getColumna() - 2].getPosicio()))
-				{
-					penalitzar = true;
-				}
-				y++;
-			}
-		}
-		else//caso en el que si que hace todo el camino
-		{
-
-
-			while (j < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)
-			{
-				if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(j).getnMoviment())
-				{
-					penalitzar = true;
-				}
-				else
-				{
-					j++;
-				}
-			}
-
-		}
-
-		if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() == 2 || m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() == -2)
-		{
-			if (m_tauler[origen.getFila()][origen.getColumna()].getColor() == COLOR_BLANC)// para saber si va hacia arriba o hacia abajo
-			{
-				direY = 1;
-			}
-			else
-			{
-				direY = -1;
-			}
-			j = 0;
-
-			if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() > 0)//Mira si se mueve hacia la izquierda
-			{
-				direX = -1;
-			}
-			else//mira si se mueve hacia la derecha
-			{
-				direX = 1;
-			}
-			m_tauler[origen.getFila() + direX][origen.getColumna() + direY] = Fitxa();
-
-			for (j = 0; j < x-1; j++)//para todos los elementos del camino
-			{
-				if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
-				{
-					direX = -1;
-				}
-				else//mira si se mueve hacia la derecha
-				{
-					direX = 1;
-				}
-				m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() + direX][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() + direY] = Fitxa();
-			}
-		}
-
-		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna() == 0 && direY == -1)
-		{
-			m_tauler[origen.getFila()][origen.getColumna()].setTipus(TIPUS_DAMA);
-		}
-		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna() == 7 && direY == 1)
-		{
-			m_tauler[origen.getFila()][origen.getColumna()].setTipus(TIPUS_DAMA);
-		}
-
-		if (penalitzar = true)//si ha hecho el movimiento optimo lo elimina
-		{
-			m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
-		}
-		else//si el movimiento es optimo mueve la fitxa
-		{
-			m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getFila()][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna()] =
-				Fitxa(m_tauler[origen.getFila()][origen.getColumna()].getTipus(), m_tauler[origen.getFila()][origen.getColumna()].getColor(), m_tauler[origen.getFila()][origen.getColumna()].getPosHorit(), m_tauler[origen.getFila()][origen.getColumna()].getPosVert());
-
-			m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
-		}
-	}
+	//if (fet && m_tauler[origen.getFila()][origen.getColumna()].getTipus() == TIPUS_NORMAL)
+	//{
+	//	if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() - 1 != x)//no hace el camino completo
+	//	{
+	//		penalitzar = true;
+	//	}
+	//	//mira cuando el movimiento seleccionado se mueve unicamente 1 espacio si ese es el movimiento optimo
+	//	if ((m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getPosicio() &&
+	//		m_tauler[origen.getFila() + 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY) ||
+	//		(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getPosicio() &&
+	//			m_tauler[origen.getFila() - 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY) ||
+	//		(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getPosicio() &&
+	//			m_tauler[origen.getFila() - 1][origen.getColumna() + 1].getTipus() == TIPUS_EMPTY) ||
+	//		(m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j) == m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getPosicio() &&
+	//			m_tauler[origen.getFila() + 1][origen.getColumna() - 1].getTipus() == TIPUS_EMPTY))
+	//	{
+	//		while (y < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)
+	//		{
+	//			if ((m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j) == m_tauler[origen.getFila() + 2][origen.getColumna() + 2].getPosicio()  || 
+	//				m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j) == m_tauler[origen.getFila() - 2][origen.getColumna() - 2].getPosicio()  ||
+	//				m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j) == m_tauler[origen.getFila() - 2][origen.getColumna() + 2].getPosicio()  ||
+	//				m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j) == m_tauler[origen.getFila() + 2][origen.getColumna() - 2].getPosicio()))
+	//			{
+	//				penalitzar = true;
+	//			}
+	//			y++;
+	//		}
+	//	}
+	//	else//caso en el que si que hace todo el camino
+	//	{
 
 
-	if (fet && m_tauler[origen.getFila()][origen.getColumna()].getTipus() == TIPUS_DAMA)//lo mismo que el anterior pero para el tipo dama
-	{
-		if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() > 0)//Mira si se mueve hacia la izquierda
-		{
-			direX = -1;
-		}
-		else//mira si se mueve hacia la derecha
-		{
-			direX = 1;
-		}
-		if (m_tauler[origen.getFila()][origen.getColumna()].getPosVert() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() > 0)//abajo
-		{
-			direY = -1;
-		}
-		else//arriba
-		{
-			direY = 1;
-		}
-		distancia = m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila();
+	//		while (j < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)
+	//		{
+	//			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getnMoviment() < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(j).getnMoviment())
+	//			{
+	//				penalitzar = true;
+	//			}
+	//			else
+	//			{
+	//				j++;
+	//			}
+	//		}
 
-		if (distancia == 2 || distancia == -2)
-		{
-			muerta1++;
-			m_tauler[origen.getFila() + direX][origen.getColumna() + direY] = Fitxa();
+	//	}
 
-		}
+	//	if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() == 2 || m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() == -2)
+	//	{
+	//		if (m_tauler[origen.getFila()][origen.getColumna()].getColor() == COLOR_BLANC)// para saber si va hacia arriba o hacia abajo
+	//		{
+	//			direY = 1;
+	//		}
+	//		else
+	//		{
+	//			direY = -1;
+	//		}
+	//		j = 0;
 
-		for (j = 0; j < x - 1; j++)
-		{
-			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
-			{
-				direX = -1;
-			}
-			else//mira si se mueve hacia la derecha
-			{
-				direX = 1;
-			}
-			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getColumna() > 0)//Abajo
-			{
-				direY = -1;
-			}
-			else//arriba
-			{
-				direY = 1;
-			}
-			distancia = m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila();
+	//		if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() > 0)//Mira si se mueve hacia la izquierda
+	//		{
+	//			direX = -1;
+	//		}
+	//		else//mira si se mueve hacia la derecha
+	//		{
+	//			direX = 1;
+	//		}
+	//		m_tauler[origen.getFila() + direX][origen.getColumna() + direY] = Fitxa();
 
+	//		for (j = 0; j < x-1; j++)//para todos los elementos del camino
+	//		{
+	//			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
+	//			{
+	//				direX = -1;
+	//			}
+	//			else//mira si se mueve hacia la derecha
+	//			{
+	//				direX = 1;
+	//			}
+	//			m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() + direX][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() + direY] = Fitxa();
+	//		}
+	//	}
 
-			if (distancia == 2 || distancia == -2)
-			{
-				muerta1++;
-				m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() + direX][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() + direY] = Fitxa();
-			}
-		}
+	//	if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna() == 0 && direY == -1)
+	//	{
+	//		m_tauler[origen.getFila()][origen.getColumna()].setTipus(TIPUS_DAMA);
+	//	}
+	//	if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna() == 7 && direY == 1)
+	//	{
+	//		m_tauler[origen.getFila()][origen.getColumna()].setTipus(TIPUS_DAMA);
+	//	}
 
+	//	if (penalitzar = true)//si ha hecho el movimiento optimo lo elimina
+	//	{
+	//		m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
+	//	}
+	//	else//si el movimiento es optimo mueve la fitxa
+	//	{
+	//		m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getFila()][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna()] =
+	//			Fitxa(m_tauler[origen.getFila()][origen.getColumna()].getTipus(), m_tauler[origen.getFila()][origen.getColumna()].getColor(), m_tauler[origen.getFila()][origen.getColumna()].getPosHorit(), m_tauler[origen.getFila()][origen.getColumna()].getPosVert());
 
-		while (y < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)//mira si se ha elegido el camino optimo
-		{
-			if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() > 0)//Mira si se mueve hacia la izquierda
-			{
-				direX = -1;
-			}
-			else//mira si se mueve hacia la derecha
-			{
-				direX = 1;
-			}
-			if (m_tauler[origen.getFila()][origen.getColumna()].getPosVert() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getColumna() > 0)//abajo
-			{
-				direY = -1;
-			}
-			else//arriba
-			{
-				direY = 1;
-			}
-			distancia = m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila();
-
-			if (distancia == 2 || distancia == -2)
-			{
-				muerta2++;
-
-			}
-			while (j < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getnMoviment() - 1 && penalitzar == false)
-			{
-				if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
-				{
-					direX = -1;
-				}
-				else//mira si se mueve hacia la derecha
-				{
-					direX = 1;
-				}
-				if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getColumna() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getColumna() > 0)//Abajo
-				{
-					direY = -1;
-				}
-				else//arriba
-				{
-					direY = 1;
-				}
-				distancia = m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getFila();
+	//		m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
+	//	}
+	//}
 
 
-				if (distancia == 2 || distancia == -2)
-				{
-					muerta1++;
-				}
-				if (muerta2 > muerta1)
-				{
-					penalitzar = true;
-				}
-				j++;
-			}
-			j = 0;
-			muerta2 = 0;
-			y++;
-		}
+	//if (fet && m_tauler[origen.getFila()][origen.getColumna()].getTipus() == TIPUS_DAMA)//lo mismo que el anterior pero para el tipo dama
+	//{
+	//	if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() > 0)//Mira si se mueve hacia la izquierda
+	//	{
+	//		direX = -1;
+	//	}
+	//	else//mira si se mueve hacia la derecha
+	//	{
+	//		direX = 1;
+	//	}
+	//	if (m_tauler[origen.getFila()][origen.getColumna()].getPosVert() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() > 0)//abajo
+	//	{
+	//		direY = -1;
+	//	}
+	//	else//arriba
+	//	{
+	//		direY = 1;
+	//	}
+	//	distancia = m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila();
+
+	//	if (distancia == 2 || distancia == -2)
+	//	{
+	//		muerta1++;
+	//		m_tauler[origen.getFila() + direX][origen.getColumna() + direY] = Fitxa();
+
+	//	}
+
+	//	for (j = 0; j < x - 1; j++)
+	//	{
+	//		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
+	//		{
+	//			direX = -1;
+	//		}
+	//		else//mira si se mueve hacia la derecha
+	//		{
+	//			direX = 1;
+	//		}
+	//		if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getColumna() > 0)//Abajo
+	//		{
+	//			direY = -1;
+	//		}
+	//		else//arriba
+	//		{
+	//			direY = 1;
+	//		}
+	//		distancia = m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j + 1).getFila();
 
 
-		if (penalitzar = true)
-		{
-			m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
-		}
-		else
-		{
-			m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getFila()][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna()] =
-				Fitxa(m_tauler[origen.getFila()][origen.getColumna()].getTipus(), m_tauler[origen.getFila()][origen.getColumna()].getColor(), m_tauler[origen.getFila()][origen.getColumna()].getPosHorit(), m_tauler[origen.getFila()][origen.getColumna()].getPosHorit());
-
-			m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
-		}
-	}
+	//		if (distancia == 2 || distancia == -2)
+	//		{
+	//			muerta1++;
+	//			m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getFila() + direX][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(j).getColumna() + direY] = Fitxa();
+	//		}
+	//	}
 
 
+	//	while (y < m_tauler[origen.getFila()][origen.getColumna()].getnValidas() && penalitzar == false)//mira si se ha elegido el camino optimo
+	//	{
+	//		if (m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() > 0)//Mira si se mueve hacia la izquierda
+	//		{
+	//			direX = -1;
+	//		}
+	//		else//mira si se mueve hacia la derecha
+	//		{
+	//			direX = 1;
+	//		}
+	//		if (m_tauler[origen.getFila()][origen.getColumna()].getPosVert() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getColumna() > 0)//abajo
+	//		{
+	//			direY = -1;
+	//		}
+	//		else//arriba
+	//		{
+	//			direY = 1;
+	//		}
+	//		distancia = m_tauler[origen.getFila()][origen.getColumna()].getPosHorit() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila();
 
-	return fet;
+	//		if (distancia == 2 || distancia == -2)
+	//		{
+	//			muerta2++;
+
+	//		}
+	//		while (j < m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getnMoviment() - 1 && penalitzar == false)
+	//		{
+	//			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getFila() > 0)//Mira si se mueve hacia la izquierda
+	//			{
+	//				direX = -1;
+	//			}
+	//			else//mira si se mueve hacia la derecha
+	//			{
+	//				direX = 1;
+	//			}
+	//			if (m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getColumna() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getColumna() > 0)//Abajo
+	//			{
+	//				direY = -1;
+	//			}
+	//			else//arriba
+	//			{
+	//				direY = 1;
+	//			}
+	//			distancia = m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j).getFila() - m_tauler[origen.getFila()][origen.getColumna()].getMoviments(y).getMoviment(j + 1).getFila();
+
+
+	//			if (distancia == 2 || distancia == -2)
+	//			{
+	//				muerta1++;
+	//			}
+	//			if (muerta2 > muerta1)
+	//			{
+	//				penalitzar = true;
+	//			}
+	//			j++;
+	//		}
+	//		j = 0;
+	//		muerta2 = 0;
+	//		y++;
+	//	}
+
+
+	//	if (penalitzar = true)
+	//	{
+	//		m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
+	//	}
+	//	else
+	//	{
+	//		m_tauler[m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getFila()][m_tauler[origen.getFila()][origen.getColumna()].getMoviments(i).getMoviment(x).getColumna()] =
+	//			Fitxa(m_tauler[origen.getFila()][origen.getColumna()].getTipus(), m_tauler[origen.getFila()][origen.getColumna()].getColor(), m_tauler[origen.getFila()][origen.getColumna()].getPosHorit(), m_tauler[origen.getFila()][origen.getColumna()].getPosHorit());
+
+	//		m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
+	//	}
+	//}
+
+	//return fet;
+	return false;
 }
 /*
 	Mou la peça que ocupa la posició del paràmetre origen a la posició del paràmetre desti.

@@ -1,9 +1,8 @@
 #ifndef TAULER_H
-	#define TAULER_H
+#define TAULER_H
 
-
-#include "posicio.hpp"
 #include "Fitxa.h"
+#include "posicio.hpp"
 #include <fstream>
 
 using namespace std;
@@ -11,6 +10,18 @@ using namespace std;
 class Tauler
 {
 public:
+	Tauler()
+	{
+		m_nPosicions = 0;
+		for (int i = 0; i < N_FILES; i++)
+		{
+			for (int j = 0; j < N_COLUMNES; j++)
+			{
+				Fitxa fit;
+				m_tauler[i][j] = fit;
+			}
+		}
+	}
 	void setNPosicions(int nPos) { m_nPosicions = nPos; }
 	int getNPosicions() { return m_nPosicions; }
 	void inicialitza(const string& nomFitxer); //inicialitzaem el fitxer segons un document de text
@@ -59,6 +70,7 @@ Posicions possibles de la posició ‘b2’:[‘a3’,‘d4’,‘f6’,‘d8’,‘h8’]*/
 	2: _ O _ _ _ _ _ X
 	1: O _ O _ D _ _ _
 	   A B C D E F G H
+	creo q ya se como se hace
 	*/
 
 private:

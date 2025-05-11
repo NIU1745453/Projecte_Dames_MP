@@ -12,7 +12,8 @@ public:
 	Moviment() {
 		for (int i = 0; i < 50; i++)
 		{
-			m_posicio[i] = Posicio();
+			Posicio pos;
+			m_posicio[i] = pos;
 		}
 		m_nPosicio = 0;
 	}

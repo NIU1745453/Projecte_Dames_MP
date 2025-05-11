@@ -1,13 +1,10 @@
 #ifndef FITXA_H
 	#define FITXA_H
 #include "Moviment.h"
-#include "posicio.hpp"
-//#ifndef FITXA_H
-//#define FITXA_H
-
-
 
 using namespace std;
+
+
 
 const int MAX_MOVIMENTS = 12;//pot ser canviat
 
@@ -28,14 +25,25 @@ typedef enum
 class Fitxa
 {
 public:
-	Fitxa() { m_tipus = TIPUS_EMPTY, m_color = CAP_COLOR, m_posicio.setPosicio(0, 0), m_nValidas = 0; 
-	for (int i = 0; i < MAX_MOVIMENTS; i++)
+	Fitxa() 
 	{
-		m_movimentsValids[i] = Moviment();
+		m_tipus = TIPUS_EMPTY;
+		m_color = CAP_COLOR;
+		Posicio pos;
+		m_posicio = pos;
+		m_nValidas = 0;
+		for (int i = 0; i < MAX_MOVIMENTS; i++)
+		{
+			Moviment mov;
+			m_movimentsValids[i] = mov;
+		}
 	}
+	Fitxa(TipusFitxa tipus, ColorFitxa color, int vert, int horit) 
+	{
+		m_tipus = tipus;
+		m_color = color;
+		m_posicio.setPosicio(horit, vert);
 	}
-	Fitxa(TipusFitxa tipus, ColorFitxa color, int vert, int horit) { m_tipus = tipus, m_color = color, m_posicio.setPosicio(horit, vert); }
-
 
 	int getPosVert() { return m_posicio.getColumna(); }
 	int getPosHorit() { return m_posicio.getFila(); }
@@ -45,6 +53,14 @@ public:
 	ColorFitxa getColor() const { return m_color; }
 	Moviment getMoviments(int i) { return m_movimentsValids[i]; }
 
+	//fallan los setters
+
+	void setFitxa(TipusFitxa tipus, ColorFitxa color, int vert, int horit)
+	{
+		m_tipus = tipus;
+		m_color = color;
+		m_posicio.setPosicio(horit, vert);
+	}
 	void setPosFitxa(int vert, int horit) { m_posicio.setPosicio(vert, horit); }
 	void setTipus(TipusFitxa tipus) { m_tipus = tipus; }
 	void setColor(ColorFitxa color) { m_color = color; }

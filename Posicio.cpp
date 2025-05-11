@@ -21,8 +21,13 @@ string Posicio::toString() const
 
 void Posicio::fromString(const string& pos)
 {
-    m_fila = (N_FILES - 1) - (pos[1] - '1');
-    m_columna = pos[0] - 'a';
+    if (pos.length() >= 2 &&
+        pos[0] >= 'a' && pos[0] <= 'h' &&
+        pos[1] >= '1' && pos[1] <= '8')
+    {
+        m_fila = (N_FILES - 1) - (pos[1] - '1');
+        m_columna = pos[0] - 'a';
+    }
 
 }
 
