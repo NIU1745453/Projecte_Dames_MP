@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\source">
+      <UniqueIdentifier>{595fecd1-7ed2-4f1e-9b65-1e4062517cfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\source">
+      <UniqueIdentifier>{e3d90880-398a-4ae2-99f8-bf37df11609e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\test.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Fitxa.cpp">
+      <Filter>Archivos de origen\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Moviment.cpp">
+      <Filter>Archivos de origen\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Posicio.cpp">
+      <Filter>Archivos de origen\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Tauler.cpp">
+      <Filter>Archivos de origen\source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\json.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Fitxa.h">
+      <Filter>Archivos de encabezado\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Moviment.h">
+      <Filter>Archivos de encabezado\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\posicio.hpp">
+      <Filter>Archivos de encabezado\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tauler.hpp">
+      <Filter>Archivos de encabezado\source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="tauler_moviment_fitxa_resultat_5.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_6.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_7.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_8.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_9.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_10.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviments_valids.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_inicial_1.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_inicial_2.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_1.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_2.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_3.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_4.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_5.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_6.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_7.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_8.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_9.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_10.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_1.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_2.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_3.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_4.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source\.gitignore">
+      <Filter>Archivos de encabezado</Filter>
+    </None>
+  </ItemGroup>
+</Project>
