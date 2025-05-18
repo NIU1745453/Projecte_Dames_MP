@@ -283,8 +283,6 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 	}
 }
 
-
-
 bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
 	bool trobat = false;
@@ -376,7 +374,7 @@ bool Tauler::posicioExistent(const Posicio& origen, int& nPosicions, Posicio pos
 //
 //}
 
-//bufar per no fer el millor mov en general
+//bufar per no fer el millor mov en general, bufem la fitxa q podia fer el mov
 //meja mes fitxes, mes dames, mes punts
 
 bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)

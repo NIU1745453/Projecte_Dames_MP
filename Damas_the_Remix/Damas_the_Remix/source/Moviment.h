@@ -10,7 +10,7 @@ class Moviment
 {
 public:
 	Moviment() {
-		for (int i = 0; i < 50; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			Posicio pos;
 			m_posicio[i] = pos;
@@ -26,7 +26,7 @@ public:
 
 
 private:
-	Posicio m_posicio[50];//tiene variable fila, columna y string
+	Posicio m_posicio[10];//tiene variable fila, columna y string
 	int m_nPosicio;
 };
 

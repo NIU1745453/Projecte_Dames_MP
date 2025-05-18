@@ -29,6 +29,8 @@ public:
 	{
 		m_tipus = TIPUS_EMPTY;
 		m_color = CAP_COLOR;
+		m_matades = 0;
+		m_damesMatades = 0;
 		Posicio pos;
 		m_posicio = pos;
 		m_nValidas = 0;
@@ -43,6 +45,8 @@ public:
 		m_tipus = tipus;
 		m_color = color;
 		m_posicio.setPosicio(horit, vert);
+		m_matades = 0;
+		m_damesMatades = 0;
 	}
 
 	int getPosVert() { return m_posicio.getColumna(); }
@@ -74,6 +78,8 @@ private:
 	Posicio m_posicio;
 	Moviment m_movimentsValids[MAX_MOVIMENTS];
 	int m_nValidas;
+	int m_damesMatades; //en cas d'empat saber qui ha matat mes dames
+	int m_matades; // per saber quina bufar
 };
 
 #endif 
