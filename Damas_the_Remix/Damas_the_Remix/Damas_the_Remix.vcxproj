@@ -141,6 +141,9 @@
     <ClInclude Include="source\tauler.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="source\.gitignore" />
+  </ItemGroup>
+  <ItemGroup>
     <Text Include="tauler_inicial_1.txt" />
     <Text Include="tauler_inicial_2.txt" />
     <Text Include="tauler_moviments_valids.txt" />
@@ -164,9 +167,6 @@
     <Text Include="tauler_moviment_fitxa_resultat_7.txt" />
     <Text Include="tauler_moviment_fitxa_resultat_8.txt" />
     <Text Include="tauler_moviment_fitxa_resultat_9.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="source\.gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

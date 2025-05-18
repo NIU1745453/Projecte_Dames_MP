@@ -55,12 +55,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="tauler_moviment_fitxa_resultat_5.txt">
-      <Filter>Archivos de recursos</Filter>
-    </Text>
-    <Text Include="tauler_moviment_fitxa_resultat_6.txt">
-      <Filter>Archivos de recursos</Filter>
-    </Text>
+    <None Include="source\.gitignore">
+      <Filter>Archivos de encabezado</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Text Include="tauler_moviment_fitxa_resultat_7.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
@@ -124,10 +123,11 @@
     <Text Include="tauler_moviment_fitxa_resultat_4.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="source\.gitignore">
-      <Filter>Archivos de encabezado</Filter>
-    </None>
+    <Text Include="tauler_moviment_fitxa_resultat_5.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="tauler_moviment_fitxa_resultat_6.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
 </Project>

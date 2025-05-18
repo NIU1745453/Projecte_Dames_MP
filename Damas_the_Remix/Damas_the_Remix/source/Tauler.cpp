@@ -161,10 +161,14 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 				posicionsPossibles[nPosicions] = m_tauler[newFila][columna + 1].getPosicio();
 				nPosicions++;
 			}
-			if (m_tauler[newFila][columna + uno].getColor() != color)
+			else if (m_tauler[newFila][columna + uno].getColor() != color)
 			{
 				uno = uno * 2;
-				newFila = newFila * 2;
+
+				if (color == COLOR_NEGRE)
+					newFila++;
+				else if (color == COLOR_BLANC)
+					newFila--;
 				if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
 				{
 					posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
