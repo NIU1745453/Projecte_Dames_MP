@@ -76,7 +76,7 @@ Posicions possibles de la posició ‘b2’:[‘a3’,‘d4’,‘f6’,‘d8’,‘h8’]*/
 private:
 	Fitxa m_tauler[N_FILES][N_COLUMNES];
 	int m_nPosicions;
-	Posicio m_posicionsPossibles[10];
+	Posicio m_posicionsPossibles[MAX_MOVIMENTS];
 };
 
 //void escriuTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);

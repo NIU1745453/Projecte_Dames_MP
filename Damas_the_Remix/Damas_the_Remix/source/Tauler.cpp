@@ -134,195 +134,151 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 	nPosicions = 0;
 	int posValides = 1;
 	int uno = 1;
+	int nPendents = 1;
+	int newFila = fila;
+	int newColumna = columna;
 	TipusFitxa tipus = m_tauler[fila][columna].getTipus();
 	ColorFitxa color = m_tauler[fila][columna].getColor();
-	/*
-	El codi pot ser simplificat a base d'agefir funcions 
-	Blan i negre son igual nomes canvia si puja o baixa del tauler (SOLO CAMBIA FILA)
-	*/
 
 	switch (tipus)
 	{
 	case TIPUS_NORMAL:
-		//me podria deshacer de este case interno y haces el codigo mucho mas corto
-		switch (color)
+		
+		if (color == COLOR_NEGRE)
+			newFila++;
+		else if (color == COLOR_BLANC)
+			newFila--;
+		
+		switch (columna)
 		{
-		case COLOR_BLANC:
-			if ((fila > 0 && fila < 8) && (columna > 0 && columna < 8))
+		case 0:
+		case 7:
+
+			if (columna == 7)
+				uno = -1;
+			if (m_tauler[newFila][columna + uno].getColor() == CAP_COLOR)
 			{
-				switch (columna)
+				posicionsPossibles[nPosicions] = m_tauler[newFila][columna + 1].getPosicio();
+				nPosicions++;
+			}
+			if (m_tauler[newFila][columna + uno].getColor() != color)
+			{
+				uno = uno * 2;
+				newFila = newFila * 2;
+				if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
 				{
-				case 0:
-				case 7:
-					
-					if (columna == 7)
-						uno = -1;
-					if (m_tauler[fila - 1][columna + uno].getColor() == CAP_COLOR)
-					{
-						posicionsPossibles[nPosicions] = m_tauler[fila - 1][columna + 1].getPosicio();
-						nPosicions++;
-					}
-					if (m_tauler[fila - 1][columna + uno].getColor() == COLOR_NEGRE)
-					{
-						uno = uno * 2;
-						if (m_tauler[fila - 2][columna].getColor() == CAP_COLOR)
-						{
-							posicionsPossibles[nPosicions] = m_tauler[fila - 2][columna ].getPosicio();
-							nPosicions++;
-						}
-						if (m_tauler[fila - 2][columna + uno].getColor() == CAP_COLOR)
-						{
-							posicionsPossibles[nPosicions] = m_tauler[fila - 2][columna + uno].getPosicio();
-							nPosicions++;
-						}
-					}
-					break;
-				case 1 || 6:
-					int newFila = fila-1;
-					int newColumna = columna + 1;
-					//mirem si son buides
-					ColorFitxa newColor = m_tauler[newFila][newColumna].getColor();
-
-					if (newColor == CAP_COLOR)
-					{
-						posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
-						nPosicions++;
-					}
-					else if (newColor == COLOR_NEGRE)
-					{
-						newFila--;
-						if (columna != 6)
-						{
-							if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
-							{
-								posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
-								nPosicions++;
-							}
-							if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
-							{
-								posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
-								nPosicions++;
-							}
-						}
-					}
-
-					newColor = m_tauler[newFila][columna - 1].getColor();
-					newColumna = columna - 1;
-					if (newColor == CAP_COLOR)
-					{
-						posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
-						nPosicions++;
-					}
-					else if (newColor == COLOR_NEGRE)
-					{
-						newFila--;
-						if (columna != 1)
-						{
-							if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
-							{
-								posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
-								nPosicions++;
-							}
-							if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
-							{
-								posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
-								nPosicions++;
-							}
-						}
-					}
-					break;
+					posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
+					nPosicions++;
+				}
+				if (m_tauler[newFila][columna + uno].getColor() == CAP_COLOR)
+				{
+					posicionsPossibles[nPosicions] = m_tauler[newFila][columna + uno].getPosicio();
+					nPosicions++;
 				}
 			}
 			break;
-		case COLOR_NEGRE:
-			if ((fila > 0 && fila < 8) && (columna > 0 && columna < 8))
+		case 1 || 6:
+
+			//mirem el costat dret
+			newColumna++;
+			//mirem si son buides
+			ColorFitxa newColor = m_tauler[newFila][newColumna].getColor();
+
+			if (newColor == CAP_COLOR)
 			{
-				switch (columna)
+				posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
+				nPosicions++;
+			}
+			else if (newColor != color)
+			{
+				newFila = newFila * 2;
+				if (columna != 6)
 				{
-				case 0:
-				case 7:
-					if (columna == 7)
-						uno = -1;
-					if (m_tauler[fila - 1][columna + uno].getColor() == CAP_COLOR)
+					if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
 					{
-						posicionsPossibles[nPosicions] = m_tauler[fila - 1][columna + 1].getPosicio();
+						posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
 						nPosicions++;
 					}
-					if (m_tauler[fila - 1][columna + uno].getColor() == COLOR_BLANC)
+					if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
 					{
-						uno = uno * 2;
-						if (m_tauler[fila - 2][columna].getColor() == CAP_COLOR)
-						{
-							posicionsPossibles[nPosicions] = m_tauler[fila - 2][columna].getPosicio();
-							nPosicions++;
-						}
-						if (m_tauler[fila - 2][columna + uno].getColor() == CAP_COLOR)
-						{
-							posicionsPossibles[nPosicions] = m_tauler[fila - 2][columna + uno].getPosicio();
-							nPosicions++;
-						}
+						posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
+						nPosicions++;
 					}
-					break;
-				case 1 || 6:
-					int newFila = fila + 1;
-					int newColumna = columna + 1;
-					//mirem si son buides
-					ColorFitxa newColor = m_tauler[newFila][newColumna].getColor();
+				}
+			}
 
-					if (newColor == CAP_COLOR)
+			//mirem el costat esquerra
+			newColor = m_tauler[newFila][columna - 1].getColor();
+			newColumna = columna - 1;
+			if (newColor == CAP_COLOR)
+			{
+				posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
+				nPosicions++;
+			}
+			else if (newColor != color)
+			{
+				newFila = newFila * 2;
+				if (columna != 1)
+				{
+					if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
 					{
-						posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
+						posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
 						nPosicions++;
 					}
-					else if (newColor == COLOR_BLANC)
+					if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
 					{
-						newFila++;
-						if (columna != 6)
-						{
-							if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
-							{
-								posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
-								nPosicions++;
-							}
-							if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
-							{
-								posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
-								nPosicions++;
-							}
-						}
-					}
-
-					newColor = m_tauler[newFila][columna - 1].getColor();
-					newColumna = columna - 1;
-					if (newColor == CAP_COLOR)
-					{
-						posicionsPossibles[nPosicions] = m_tauler[newFila][newColumna].getPosicio();
+						posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
 						nPosicions++;
 					}
-					else if (newColor == COLOR_BLANC)
-					{
-						newFila++;
-						if (columna != 1)
-						{
-							if (m_tauler[newFila][columna].getColor() == CAP_COLOR)
-							{
-								posicionsPossibles[nPosicions] = m_tauler[newFila][columna].getPosicio();
-								nPosicions++;
-							}
-							if (m_tauler[newFila][columna + 2].getColor() == CAP_COLOR)
-							{
-								posicionsPossibles[nPosicions] = m_tauler[newFila][columna - 2].getPosicio();
-								nPosicions++;
-							}
-						}
-					}
-					break;
 				}
 			}
 			break;
 		}
 		break;
 	case TIPUS_DAMA:
+		int dx[4] = { -1,-1,1,1 };
+		int dy[4] = { -1,1,-1,1 };
+
+		
+		for (int i = 0; i < 4; i++)
+		{
+			newFila = fila + dx[i];
+			newColumna = columna + dy[i];
+
+			if (newFila >= 0 && newFila < 8 && newColumna >= 0 && newColumna < 8)
+			{
+				int newColor = m_tauler[newFila][newColumna].getColor();
+				if (newColor == CAP_COLOR)
+				{
+					if (!posicioExistent(origen, nPosicions, posicionsPossibles))
+					{
+						posicionsPossibles[nPosicions] = m_tauler[newFila][columna + 1].getPosicio();
+						nPosicions++;
+					}
+				}
+				else if (color != newColor)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						newFila += dx[j];
+						newColor += dy[j];
+
+						if (newFila >= 0 && newFila < 8 && newColumna >= 0 && newColumna < 8)
+						{
+							int newColor = m_tauler[newFila][newColumna].getColor();
+							if (newColor == CAP_COLOR)
+							{
+								if (!posicioExistent(origen, nPosicions, posicionsPossibles))
+								{
+									posicionsPossibles[nPosicions] = m_tauler[newFila][columna + 1].getPosicio();
+									nPosicions++;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 		break;
 	}
 }
