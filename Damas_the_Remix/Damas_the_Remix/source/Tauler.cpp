@@ -134,7 +134,11 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 	int movs[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
 	if (fitxa.getTipus() == TIPUS_NORMAL) {
-		int dir = (fitxa.getColor() == COLOR_BLANC) ? 1 : -1;
+		int dir;
+		if (fitxa.getColor() == COLOR_BLANC)
+			dir = -1;
+		else
+			dir = 1;
 
 		for (int i = 0; i < 2; i++) {
 			int newFila = fila + dir;
