@@ -69,7 +69,13 @@ public:
 	void setTipus(TipusFitxa tipus) { m_tipus = tipus; }
 	void setColor(ColorFitxa color) { m_color = color; }
 	void setnValidas(int validas) { m_nValidas = validas; }
-
+	void setMovimentsValids(Moviment movValids[], int nMov)
+	{
+		for (int i = 0; i < nMov; i++)
+		{
+			m_movimentsValids[i] = movValids[i];
+		}
+	}
 	//Moviment movimentsValids(Fitxa tauler[N_FILES][N_COLUMNES]) {};//encara no se que colocar aqui com a paramentres
 
 private:

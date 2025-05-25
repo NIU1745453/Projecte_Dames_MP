@@ -1,2 +1,4 @@
 ﻿  Tauler.cpp
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\Damas_the_Remix\Damas_the_Remix\source\Tauler.cpp(127,6): warning C4101: 'dy': variable local sin referencia
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\Damas_the_Remix\Damas_the_Remix\source\Tauler.cpp(126,6): warning C4101: 'dx': variable local sin referencia
   Damas_the_Remix.vcxproj -> C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\Damas_the_Remix\x64\Debug\Damas_the_Remix.exe

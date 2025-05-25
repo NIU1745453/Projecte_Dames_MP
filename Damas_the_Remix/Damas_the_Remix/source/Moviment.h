@@ -13,20 +13,21 @@ public:
 		for (int i = 0; i < 10; i++)
 		{
 			Posicio pos;
-			m_posicio[i] = pos;
+			m_posicio = pos;
 		}
 		m_nPosicio = 0;
 	}
 
-	Posicio getMoviment(int i) const { return m_posicio[i]; }
+	Posicio getMoviment() const { return m_posicio; }
 	int getnMoviment() { return m_nPosicio; }
 
-	void setMoviment(string mov, int i) { m_posicio[i].setPosicio(mov); }
+	void setMoviment(string mov) { m_posicio.setPosicio(mov); }
 	void setnMoviment(int i) { m_nPosicio = i; }
 
 
 private:
-	Posicio m_posicio[10];//tiene variable fila, columna y string
+	Posicio m_posicio;//tiene variable fila, columna y string
+
 	int m_nPosicio;
 };
 
