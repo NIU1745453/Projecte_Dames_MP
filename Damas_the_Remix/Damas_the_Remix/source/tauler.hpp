@@ -28,6 +28,10 @@ public:
 
 	void actualitzaMovimentsValids();//actualiza los movimientos validos de las fitxas del tablero
 
+	void getPosicionsImmediates(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);
+	//esta funcion solo devuelve las posiciones immediatas desde una ficha de origen, y por tanto sera mejor para la funcion actualitza mov vàlids
+	//dado que de esta manera podemos hacer el camino más óptimo
+
 	void getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);//creo que la funcion del tipo fitxa es igual a esta
 	/* El mètode retorna a l’array posicionsPossibles totes les posicions on es podria moure la peça
 que ocupa la posició origen, tenint en compte tots els passos de qualsevol moviment vàlid de la

@@ -110,83 +110,179 @@ void Tauler::actualitzaMovimentsValids()
 	}
 }
 
-//falta TIPUS_DAMA
-void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
+void Tauler::getPosicionsImmediates(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
 {
 	int fila = origen.getFila();
 	int col = origen.getColumna();
 	nPosicions = 0;
-	int posValides = 1;
-	int uno = 1;
-	int nPendents = 0;
-	int newFila = fila;
-	int newColumna = col;
-	TipusFitxa tipus = m_tauler[fila][col].getTipus();
-	ColorFitxa color = m_tauler[fila][col].getColor();
-	int dx[2];
-	int dy[2];
-	Posicio posPend[3];
-	//miramos las direciones que puede mirar la fitxa
-	nPosicions = 0;
 	Fitxa fitxa = m_tauler[fila][col];
 
-	// desplazamientos diagonales
+	// desplazamientos diagonales, miramos que las diagonales de nuestra fixa cumplan las condiciones (bacias o enemigas)
 	int movs[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
-	if (fitxa.getTipus() == TIPUS_NORMAL) {
+	if (fitxa.getTipus() == TIPUS_NORMAL)
+	{
 		int dir;
+		//decidimos la direccion de la fitxa(si se mueve hacia arriba o hacia abajo)
 		if (fitxa.getColor() == COLOR_BLANC)
 			dir = -1;
 		else
 			dir = 1;
-
-		for (int i = 0; i < 2; i++) {
+		//al ser una normal solo puede ir hacia delante, asi que no miramos las posiciones posteriores
+		for (int i = 0; i < 2; i++)
+		{
 			int newFila = fila + dir;
 			int newCol = col + movs[i][1];
 
-			if (newFila >= 0 && newFila < 8 && newCol >= 0 && newCol < 8) {
+			//selecionamos la nueva posicion de referencia y comprobamos que esté en los parametros del tablero
+
+			if (newFila >= 0 && newFila < 8 && newCol >= 0 && newCol < 8)
+			{
 				Fitxa dest = m_tauler[newFila][newCol];
 				// Si está vacío, es posible
-				if (dest.getTipus() == TIPUS_EMPTY) {
+				if (dest.getTipus() == TIPUS_EMPTY)
+				{
 					posicionsPossibles[nPosicions++] = Posicio(newFila, newCol);
 				}
-				// Si hay ficha contraria y detrás está vacío → posible salto
-				else if (dest.getColor() != fitxa.getColor() && dest.getTipus() != TIPUS_EMPTY) {
+				// Si hay ficha contraria y detrás está vacío → posible salto, teniendo en cuenta que ha de seguir la direcion diagonal indicada
+				else if (dest.getColor() != fitxa.getColor() && dest.getTipus() != TIPUS_EMPTY)
+				{
 					int saltoFila = newFila + dir;
 					int saltoCol = newCol + movs[i][1];
-					if (saltoFila >= 0 && saltoFila < 8 && saltoCol >= 0 && saltoCol < 8
-						&& m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY) {
+					if (saltoFila >= 0 && saltoFila < 8 && saltoCol >= 0 && saltoCol < 8 && m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY)
+					{
 						posicionsPossibles[nPosicions++] = Posicio(saltoFila, saltoCol);
 					}
 				}
 			}
 		}
 	}
-	else if (fitxa.getTipus() == TIPUS_DAMA) {
-		// Para cada diagonal
-		for (int i = 0; i < 4; i++) {
+	else if (fitxa.getTipus() == TIPUS_DAMA)
+	{
+		//en el caso de las Damas, pueden ir en cualquier direción (delante y atrás), asi que miramos las 4 posiciones cardinales
+		for (int i = 0; i < 4; i++)
+		{
 			int newFila = fila + movs[i][0];
 			int newCol = col + movs[i][1];
 			bool encontrado = false;
 
-			while (newFila >= 0 && newFila < 8 && newCol >= 0 && newCol < 8 && !encontrado) {
+			//mientras no haya mirado todas las posiciones o todos los saltos no saldra del bucle
+
+			while (newFila >= 0 && newFila < 8 && newCol >= 0 && newCol < 8 && !encontrado)
+			{
 				Fitxa dest = m_tauler[newFila][newCol];
 
-				if (dest.getTipus() == TIPUS_EMPTY) {
+				//si esta bacia agrega el espacio immediatamente, si es del color contrario mira que la siguiente este bacia y sale del bucle
+				// finalmente, si es del mismo color sale del while
+				if (dest.getTipus() == TIPUS_EMPTY)
 					posicionsPossibles[nPosicions++] = Posicio(newFila, newCol);
-				}
-				else if (dest.getColor() != fitxa.getColor() && dest.getTipus() != TIPUS_EMPTY) {
+				else if (dest.getColor() != fitxa.getColor() && dest.getTipus() != TIPUS_EMPTY)
+				{
 					int saltoFila = newFila + movs[i][0];
 					int saltoCol = newCol + movs[i][1];
+					if (saltoFila >= 0 && saltoFila < 8 && saltoCol >= 0 && saltoCol < 8 && m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY)
+						posicionsPossibles[nPosicions++] = Posicio(saltoFila, saltoCol);
+
+					encontrado = true;
+					// dama solo puede saltar una vez en cada dirección por turno
+				}
+				else
+					encontrado = true;
+
+				newFila += movs[i][0];
+				newCol += movs[i][1];
+			}
+		}
+	}
+}
+
+//falta añadir la cantidad de fitxas matadas (y la de damas) de manera que no afecte en la funcion actualitza mov vàlids
+void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
+{
+	int fila = origen.getFila();
+	int col = origen.getColumna();
+	nPosicions = 0;
+	Fitxa fitxa = m_tauler[fila][col];
+
+	int movs[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+
+	if (fitxa.getTipus() == TIPUS_NORMAL)
+	{
+		int dir = (fitxa.getColor() == COLOR_BLANC) ? -1 : 1;
+		for (int i = 0; i < 2; i++)
+		{
+			int newFila = fila + dir;
+			int newCol = col + movs[i][1];
+
+			if (newFila >= 0 && newFila < 8 && newCol >= 0 && newCol < 8)
+			{
+				Fitxa dest = m_tauler[newFila][newCol];
+				if (dest.getTipus() == TIPUS_EMPTY)
+				{
+					posicionsPossibles[nPosicions++] = Posicio(newFila, newCol);
+				}
+				else if (dest.getColor() != fitxa.getColor() && dest.getTipus() != TIPUS_EMPTY)
+				{
+					int saltoFila = newFila + dir;
+					int saltoCol = newCol + movs[i][1];
 					if (saltoFila >= 0 && saltoFila < 8 && saltoCol >= 0 && saltoCol < 8
-						&& m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY) {
+						&& m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY)
+					{
 						posicionsPossibles[nPosicions++] = Posicio(saltoFila, saltoCol);
 					}
-					encontrado = true; // dama solo puede saltar una vez en cada dirección por turno
 				}
-				else {
-					encontrado = true;
+			}
+		}
+	}
+	//desgraciadamente en el test 12, no contempla (post salto) todas las pos de alrededor
+	else if (fitxa.getTipus() == TIPUS_DAMA)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			int newFila = fila + movs[i][0];
+			int newCol = col + movs[i][1];
+			bool puedeSaltar = false;
+
+			while (newFila >= 0 && newFila < 8 && newCol >= 0 && newCol < 8)
+			{
+				Fitxa dest = m_tauler[newFila][newCol];
+
+				if (dest.getTipus() == TIPUS_EMPTY)
+				{
+					// Añadir posición vacía si no está ya en la lista
+					Posicio nuevaPos(newFila, newCol);
+					if (!posicioExistent(nuevaPos, nPosicions, posicionsPossibles))
+					{
+						posicionsPossibles[nPosicions++] = nuevaPos;
+					}
 				}
+				else if (dest.getColor() != fitxa.getColor())
+				{
+					// Encontramos ficha enemiga, verificamos si podemos saltar
+					int saltoFila = newFila + movs[i][0];
+					int saltoCol = newCol + movs[i][1];
+
+					if (saltoFila >= 0 && saltoFila < 8 && saltoCol >= 0 && saltoCol < 8 &&
+						m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY)
+					{
+						Posicio saltoPos(saltoFila, saltoCol);
+						if (!posicioExistent(saltoPos, nPosicions, posicionsPossibles))
+						{
+							posicionsPossibles[nPosicions++] = saltoPos;
+							// Continuar explorando desde la posición después del salto
+							newFila = saltoFila;
+							newCol = saltoCol;
+							puedeSaltar = true;
+							continue;
+						}
+					}
+					break; // No se puede saltar o ya está considerado
+				}
+				else
+				{
+					break; // Ficha del mismo color
+				}
+
 				newFila += movs[i][0];
 				newCol += movs[i][1];
 			}
