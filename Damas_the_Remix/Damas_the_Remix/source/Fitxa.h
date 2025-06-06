@@ -82,7 +82,7 @@ private:
 	TipusFitxa m_tipus;
 	ColorFitxa m_color;
 	Posicio m_posicio;
-	Moviment m_movimentsValids[MAX_MOVIMENTS];
+	Moviment m_movimentsValids[MAX_MOVIMENTS]; //esto tmb tendra q ser un vector
 	int m_nValidas;
 	int m_damesMatades; //en cas d'empat saber qui ha matat mes dames
 	int m_matades; // per saber quina bufar

@@ -1,2 +1,8 @@
-﻿  Tauler.cpp
+﻿  Fitxa.cpp
+  Moviment.cpp
+  Tauler.cpp
+  test.cpp
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\Damas_the_Remix\Damas_the_Remix\source\test.cpp(96,24): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\Damas_the_Remix\Damas_the_Remix\source\test.cpp(447,22): warning C4305: '+=': truncamiento de 'double' a 'float'
+  Generando código...
   Damas_the_Remix.vcxproj -> C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\Damas_the_Remix\x64\Debug\Damas_the_Remix.exe
