@@ -82,7 +82,7 @@ void Tauler::actualitzaMovimentsValids()
 
 					Posicio posicionsPossibles[MAX_MOVIMENTS];
 					int nPos;
-					getPosicionsPossibles(posicioActual, nPos, posicionsPossibles);
+					getPosicionsImmediates(posicioActual, nPos, posicionsPossibles);
 
 					if (nPos > 0)
 					{
@@ -90,22 +90,77 @@ void Tauler::actualitzaMovimentsValids()
 						{
 							Moviment nouMoviment = movActual;
 							int nMov = nouMoviment.getnMoviment();
+
+							// Calcular capturas para este movimiento
+							int captures = 0;
+							int damesCapturades = 0;
+							calcularCapturas(posicioActual, posicionsPossibles[i], captures, damesCapturades);
+
 							nouMoviment.setMoviment(posicionsPossibles[i].toString());
 							nouMoviment.setnMoviment(nMov + 1);
+							nouMoviment.setCaptures(nouMoviment.getCaptures() + captures);
+							nouMoviment.setDamesCapturades(nouMoviment.getDamesCapturades() + damesCapturades);
 
 							if (nPendents < MAX_MOVIMENTS)
 								movPendents[nPendents++] = nouMoviment;
 						}
 					}
-					//else
+					else
 					{
 						if (movActual.getnMoviment() > 1 && nValids < MAX_MOVIMENTS)
 							movValids[nValids++] = movActual;
 					}
 
 				} while (nPendents > 0);
+
+				// Ordenar movimientos por número de capturas (mayor primero)
+				for (int i = 0; i < nValids - 1; i++) {
+					for (int j = i + 1; j < nValids; j++) {
+						if (movValids[i].getCaptures() < movValids[j].getCaptures()) {
+							Moviment temp = movValids[i];
+							movValids[i] = movValids[j];
+							movValids[j] = temp;
+						}
+					}
+				}
+
 				m_tauler[fila][col].setMovimentsValids(movValids, nValids);
 			}
+		}
+	}
+}
+
+void Tauler::calcularCapturas(const Posicio& origen, const Posicio& desti, int& captures, int& damesCapturades)
+{
+	int filaOrigen = origen.getFila();
+	int colOrigen = origen.getColumna();
+	int filaDesti = desti.getFila();
+	int colDesti = desti.getColumna();
+
+	// Solo hay captura si el movimiento es de más de una casilla
+	if (abs(filaDesti - filaOrigen) > 1 || abs(colDesti - colOrigen) > 1)
+	{
+		int dirFila = (filaDesti > filaOrigen) ? 1 : -1;
+		int dirCol = (colDesti > colOrigen) ? 1 : -1;
+
+		int filaActual = filaOrigen + dirFila;
+		int colActual = colOrigen + dirCol;
+
+		while (filaActual != filaDesti || colActual != colDesti)
+		{
+			// Verificar si hay una ficha enemiga en esta posición
+			if (m_tauler[filaActual][colActual].getTipus() != TIPUS_EMPTY &&
+				m_tauler[filaActual][colActual].getColor() != m_tauler[filaOrigen][colOrigen].getColor())
+			{
+				captures++;
+				if (m_tauler[filaActual][colActual].getTipus() == TIPUS_DAMA)
+				{
+					damesCapturades++;
+				}
+			}
+
+			filaActual += dirFila;
+			colActual += dirCol;
 		}
 	}
 }
@@ -197,8 +252,7 @@ void Tauler::getPosicionsImmediates(const Posicio& origen, int& nPosicions, Posi
 }
 
 //falta añadir la cantidad de fitxas matadas (y la de damas) de manera que no afecte en la funcion actualitza mov vàlids
-void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[])
-{
+void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]) {
 	int fila = origen.getFila();
 	int col = origen.getColumna();
 	nPosicions = 0;
@@ -206,81 +260,89 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 
 	int movs[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
-	if (fitxa.getTipus() == TIPUS_NORMAL)
-	{
+	if (fitxa.getTipus() == TIPUS_NORMAL) {
 		int dir = (fitxa.getColor() == COLOR_BLANC) ? -1 : 1;
-		for (int i = 0; i < 2; i++)
-		{
+		for (int i = 0; i < 2; i++) {
 			int newFila = fila + dir;
 			int newCol = col + movs[i][1];
 
-			if (newFila >= 0 && newFila < 8 && newCol >= 0 && newCol < 8)
-			{
+			if (newFila >= 0 && newFila < N_FILES && newCol >= 0 && newCol < N_COLUMNES) {
 				Fitxa dest = m_tauler[newFila][newCol];
-				if (dest.getTipus() == TIPUS_EMPTY)
-				{
+				if (dest.getTipus() == TIPUS_EMPTY) {
 					posicionsPossibles[nPosicions++] = Posicio(newFila, newCol);
 				}
-				else if (dest.getColor() != fitxa.getColor() && dest.getTipus() != TIPUS_EMPTY)
-				{
+				else if (dest.getColor() != fitxa.getColor()) {
 					int saltoFila = newFila + dir;
 					int saltoCol = newCol + movs[i][1];
-					if (saltoFila >= 0 && saltoFila < 8 && saltoCol >= 0 && saltoCol < 8
-						&& m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY)
-					{
+					if (saltoFila >= 0 && saltoFila < N_FILES && saltoCol >= 0 && saltoCol < N_COLUMNES &&
+						m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY) {
 						posicionsPossibles[nPosicions++] = Posicio(saltoFila, saltoCol);
+
+						// Verificar si después del salto hay otra ficha para capturar
+						int nuevaFila = saltoFila;
+						int nuevaCol = saltoCol;
+						bool puedeContinuar = true;
+						while (puedeContinuar) {
+							puedeContinuar = false;
+							for (int j = 0; j < 2; j++) {
+								int nextFila = nuevaFila + dir;
+								int nextCol = nuevaCol + movs[j][1];
+								if (nextFila >= 0 && nextFila < N_FILES && nextCol >= 0 && nextCol < N_COLUMNES) {
+									Fitxa nextDest = m_tauler[nextFila][nextCol];
+									if (nextDest.getColor() != fitxa.getColor() && nextDest.getTipus() != TIPUS_EMPTY) {
+										int nextSaltoFila = nextFila + dir;
+										int nextSaltoCol = nextCol + movs[j][1];
+										if (nextSaltoFila >= 0 && nextSaltoFila < N_FILES && nextSaltoCol >= 0 && nextSaltoCol < N_COLUMNES &&
+											m_tauler[nextSaltoFila][nextSaltoCol].getTipus() == TIPUS_EMPTY) {
+											// Agregar la posición final después de múltiples saltos
+											posicionsPossibles[nPosicions++] = Posicio(nextSaltoFila, nextSaltoCol);
+											nuevaFila = nextSaltoFila;
+											nuevaCol = nextSaltoCol;
+											puedeContinuar = true;
+											break;
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 			}
 		}
 	}
-	//desgraciadamente en el test 12, no contempla (post salto) todas las pos de alrededor
-	else if (fitxa.getTipus() == TIPUS_DAMA)
-	{
-		for (int i = 0; i < 4; i++)
-		{
+	else if (fitxa.getTipus() == TIPUS_DAMA) {
+		for (int i = 0; i < 4; i++) {
 			int newFila = fila + movs[i][0];
 			int newCol = col + movs[i][1];
 			bool puedeSaltar = false;
 
-			while (newFila >= 0 && newFila < 8 && newCol >= 0 && newCol < 8)
-			{
+			while (newFila >= 0 && newFila < N_FILES && newCol >= 0 && newCol < N_COLUMNES) {
 				Fitxa dest = m_tauler[newFila][newCol];
 
-				if (dest.getTipus() == TIPUS_EMPTY)
-				{
-					// Añadir posición vacía si no está ya en la lista
-					Posicio nuevaPos(newFila, newCol);
-					if (!posicioExistent(nuevaPos, nPosicions, posicionsPossibles))
-					{
-						posicionsPossibles[nPosicions++] = nuevaPos;
+				if (dest.getTipus() == TIPUS_EMPTY) {
+					if (!posicioExistent(Posicio(newFila, newCol), nPosicions, posicionsPossibles)) {
+						posicionsPossibles[nPosicions++] = Posicio(newFila, newCol);
 					}
 				}
-				else if (dest.getColor() != fitxa.getColor())
-				{
-					// Encontramos ficha enemiga, verificamos si podemos saltar
+				else if (dest.getColor() != fitxa.getColor()) {
 					int saltoFila = newFila + movs[i][0];
 					int saltoCol = newCol + movs[i][1];
-
-					if (saltoFila >= 0 && saltoFila < 8 && saltoCol >= 0 && saltoCol < 8 &&
-						m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY)
-					{
+					if (saltoFila >= 0 && saltoFila < N_FILES && saltoCol >= 0 && saltoCol < N_COLUMNES &&
+						m_tauler[saltoFila][saltoCol].getTipus() == TIPUS_EMPTY) {
 						Posicio saltoPos(saltoFila, saltoCol);
-						if (!posicioExistent(saltoPos, nPosicions, posicionsPossibles))
-						{
+						if (!posicioExistent(saltoPos, nPosicions, posicionsPossibles)) {
 							posicionsPossibles[nPosicions++] = saltoPos;
-							// Continuar explorando desde la posición después del salto
+							// Continuar explorando en la misma dirección para múltiples capturas
 							newFila = saltoFila;
 							newCol = saltoCol;
 							puedeSaltar = true;
 							continue;
 						}
 					}
-					break; // No se puede saltar o ya está considerado
+					break;
 				}
-				else
-				{
-					break; // Ficha del mismo color
+				else {
+					break;
 				}
 
 				newFila += movs[i][0];

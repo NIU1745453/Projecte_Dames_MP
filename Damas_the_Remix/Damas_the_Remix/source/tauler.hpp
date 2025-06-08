@@ -29,6 +29,8 @@ public:
 
 	void actualitzaMovimentsValids();//actualiza los movimientos validos de las fitxas del tablero
 
+	void calcularCapturas(const Posicio& origen, const Posicio& desti, int& captures, int& damesCapturades);
+
 	void getPosicionsImmediates(const Posicio& origen, int& nPosicions, Posicio posicionsPossibles[]);
 	//esta funcion solo devuelve las posiciones immediatas desde una ficha de origen, y por tanto sera mejor para la funcion actualitza mov vàlids
 	//dado que de esta manera podemos hacer el camino más óptimo

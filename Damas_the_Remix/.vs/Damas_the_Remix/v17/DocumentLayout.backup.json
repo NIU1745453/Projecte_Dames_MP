@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Fitxa.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\Fitxa.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Tauler.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\Tauler.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -11,24 +19,16 @@
       "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\tauler.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Posicio.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\Posicio.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Moviment.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\Moviment.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Fitxa.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\Fitxa.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\posicio.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\posicio.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Posicio.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|solutionrelative:Damas_the_Remix\\source\\Posicio.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6FDD0D43-E967-45BB-BC22-BC8A1336FE8F}|Damas_the_Remix\\Damas_the_Remix.vcxproj|C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Fitxa.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -82,38 +82,37 @@
               "RelativeToolTip": "Damas_the_Remix\\source\\Fitxa.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-06T17:48:52.414Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-06T17:48:52.414Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "tauler.hpp",
               "DocumentMoniker": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\tauler.hpp",
               "RelativeDocumentMoniker": "Damas_the_Remix\\source\\tauler.hpp",
               "ToolTip": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\tauler.hpp",
               "RelativeToolTip": "Damas_the_Remix\\source\\tauler.hpp",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAABpAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-18T11:45:00.581Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Tauler.cpp",
               "DocumentMoniker": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Tauler.cpp",
               "RelativeDocumentMoniker": "Damas_the_Remix\\source\\Tauler.cpp",
               "ToolTip": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Tauler.cpp",
               "RelativeToolTip": "Damas_the_Remix\\source\\Tauler.cpp",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAMoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAAAFQAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-18T11:45:11.134Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Posicio.cpp",
               "DocumentMoniker": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Posicio.cpp",
               "RelativeDocumentMoniker": "Damas_the_Remix\\source\\Posicio.cpp",
@@ -121,18 +120,17 @@
               "RelativeToolTip": "Damas_the_Remix\\source\\Posicio.cpp",
               "ViewState": "AgIAAAsAAAAAAAAAAAAjwBYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-18T12:53:19.647Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-18T12:53:19.647Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "posicio.hpp",
               "DocumentMoniker": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\posicio.hpp",
               "RelativeDocumentMoniker": "Damas_the_Remix\\source\\posicio.hpp",
               "ToolTip": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\posicio.hpp",
               "RelativeToolTip": "Damas_the_Remix\\source\\posicio.hpp",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-18T11:44:58.327Z",
               "EditorCaption": ""
@@ -145,27 +143,27 @@
               "RelativeDocumentMoniker": "Damas_the_Remix\\source\\Moviment.h",
               "ToolTip": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Moviment.h",
               "RelativeToolTip": "Damas_the_Remix\\source\\Moviment.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAADoAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-18T11:44:56.891Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "Fitxa.h",
               "DocumentMoniker": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Fitxa.h",
               "RelativeDocumentMoniker": "Damas_the_Remix\\source\\Fitxa.h",
               "ToolTip": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\Fitxa.h",
               "RelativeToolTip": "Damas_the_Remix\\source\\Fitxa.h",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAcwFQAAABNAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAowEcAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-18T11:44:54.645Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "test.cpp",
               "DocumentMoniker": "C:\\Users\\daria\\Documents\\GitHub\\Projecte_Dames_MP\\Damas_the_Remix\\Damas_the_Remix\\source\\test.cpp",
               "RelativeDocumentMoniker": "Damas_the_Remix\\source\\test.cpp",

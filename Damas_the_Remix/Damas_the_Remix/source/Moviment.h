@@ -48,10 +48,18 @@ public:
 		//return m_posicio[m_nPosicio - 1];
 	}
 
+	void setCaptures(int captures) { m_captures = captures; }
+	int getCaptures() const { return m_captures; }
+
+	void setDamesCapturades(int dames) { m_damesCapturades = dames; }
+	int getDamesCapturades() const { return m_damesCapturades; }
+
 private:
 	Posicio m_posicio;//tiene variable fila, columna y string
 	//m_posicio se tendira q convertir en classe vector
 	int m_nPosicio;
+	int m_captures = 0;       // Número total de fichas capturadas
+	int m_damesCapturades = 0; // Número de damas capturadas
 };
 
 #endif 
