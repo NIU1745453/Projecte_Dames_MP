@@ -1,0 +1,4 @@
+﻿  joc.cpp
+C:\Users\daria\Documents\GitHub\MP-Curs-24-25\projecte\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(33,71): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\daria\Documents\GitHub\MP-Curs-24-25\projecte\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(33,65): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+LINK : fatal error LNK1104: no se puede abrir el archivo 'SDL2.lib'
