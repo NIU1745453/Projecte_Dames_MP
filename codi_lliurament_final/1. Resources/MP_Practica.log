@@ -1,0 +1,33 @@
+﻿  debug.cpp
+  image_png.cpp
+  keyboard.cpp
+  mouse.cpp
+  NFont.cpp
+  SDL_FontCache.cpp
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(205,25): warning C4309: '=': truncamiento de valor constante
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(216,25): warning C4309: '=': truncamiento de valor constante
+  sound.cpp
+  sprites.cpp
+  stb_vorbis.cpp
+  video.cpp
+  Fitxa.cpp
+  GraphicManager.cpp
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\GraphicManager.cpp(29,37): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\GraphicManager.cpp(29,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  joc.cpp
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(98,97): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(132,97): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(171,35): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(218,88): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(218,82): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(225,94): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(245,31): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(247,27): warning C4018: '<': no coinciden signed/unsigned
+  main.cpp
+  Moviment.cpp
+  Posicio.cpp
+  Tauler.cpp
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(259,61): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(259,55): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+  Generando código...
+  MP_Practica.vcxproj -> C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\2. Platforms\0. Windows Desktop\Program\MP_Practica.exe
