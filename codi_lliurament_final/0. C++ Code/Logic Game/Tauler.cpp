@@ -819,6 +819,17 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 			//		m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
 			//	}
 			//}
+			if ((desti.getFila() == 7 && color == COLOR_NEGRE) || (desti.getFila() == 0 && color == COLOR_BLANC))
+			{
+				m_tauler[desti.getFila()][desti.getColumna()] = Fitxa(TIPUS_DAMA, m_tauler[origen.getFila()][origen.getColumna()].getColor(), desti.getColumna(), desti.getFila());
+				m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
+			}
+			else
+			{
+				m_tauler[desti.getFila()][desti.getColumna()] = Fitxa(m_tauler[origen.getFila()][origen.getColumna()].getTipus(), m_tauler[origen.getFila()][origen.getColumna()].getColor(), desti.getColumna(), desti.getFila());
+				m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
+			}
+
 			if(!best)//si no es el mejor movimiento bufa la pieza que si tenga el mejor movimiento
 			{
 				if (otra == false)
@@ -833,17 +844,6 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 
 				}
 
-			}
-
-			if ((desti.getFila() == 7 && color == COLOR_NEGRE) || (desti.getFila() == 0 && color == COLOR_BLANC))
-			{
-				m_tauler[desti.getFila()][desti.getColumna()] = Fitxa(TIPUS_DAMA, m_tauler[origen.getFila()][origen.getColumna()].getColor(), desti.getColumna(), desti.getFila());
-				m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
-			}
-			else
-			{
-				m_tauler[desti.getFila()][desti.getColumna()] = Fitxa(m_tauler[origen.getFila()][origen.getColumna()].getTipus(), m_tauler[origen.getFila()][origen.getColumna()].getColor(), desti.getColumna(), desti.getFila());
-				m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
 			}
 		}
 		else
