@@ -22,9 +22,6 @@ public:
     
 private:
     Tauler m_tauler;
-    //vector<string> m_movPendentsNormal;   
-            //recordar que en el cas de salts multiples el format sera a8,b7,b7,c8 (exemple) 
-            // y que per tant aixo s'haura de tenir en compte al actualitzar el joc
     ModeJoc m_mode;
     string m_fitxerMov;
     int m_fitxerMovNLine;

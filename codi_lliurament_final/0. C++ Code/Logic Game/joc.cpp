@@ -107,16 +107,23 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                 m_tauler.mouFitxa(origen, desti);
                 m_tauler.canviaTorn();
                 // Eliminar los movimientos procesados
-                m_movPendents.erase(m_movPendents.begin(), m_movPendents.begin() + 2);
+                m_movPendents.erase(m_movPendents.begin(), m_movPendents.begin() + 1);
 
                 // Comprobar si el juego ha terminado
                 if (m_tauler.jocAcabat()) 
                 {
-                    string guanyador = (m_tauler.getGuanyador() == COLOR_BLANC) ? "BLANQUES" : "NEGRES";
+                    string guanyador; 
+                    if (m_tauler.getGuanyador() == COLOR_BLANC)
+                        guanyador = "BLANQUES";
+                    else
+                        guanyador = "NEGRES";
                     string mensageFinal = "FI DEL JOC - GUANYEN LES " + guanyador;
                     GraphicManager::getInstance()->drawFont(FONT_RED_30, POS_X_TAULER, POS_Y_TAULER + 700, 1.0, mensageFinal);
                     return true; // Indica que el juego ha terminado
                 }
+
+                GraphicManager::getInstance()->drawSprite(GRAFIC_TAULER, POS_X_TAULER, POS_Y_TAULER);
+                m_tauler.visualitza();
             }
         }
         else if (m_movPendents.empty()) 
@@ -126,7 +133,11 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     {
         // --- MODO NORMAL ---
         string modoJuego = "Mode: NORMAL - Torn: ";
-        modoJuego += (m_tauler.getTorn() == COLOR_BLANC) ? "BLANQUES" : "NEGRES";
+        if (m_tauler.getTorn() == COLOR_BLANC)
+            modoJuego = "BLANQUES";
+        else
+            modoJuego = "NEGRES";
+
         GraphicManager::getInstance()->drawFont(FONT_WHITE_30, POS_X_TAULER, POS_Y_TAULER - 30, 0.8, modoJuego);
 
         // Verificar si el clic está dentro del tablero
@@ -182,7 +193,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                     if (m_tauler.mouFitxa(m_posSeleccionada, posClicada)) 
                     {
                         m_tauler.canviaTorn();
-                        ofstream fitxer(m_fitxerMov);
+                        ofstream fitxer(m_fitxerMov, ios::app);  // Modo append para añadir al final, encontrado en c++.com;
                         if (fitxer.is_open()) 
                         {
                             fitxer << m_posSeleccionada.toString() << " " << posClicada.toString() << endl;
@@ -192,7 +203,11 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                         // Comprobar si el juego ha terminado
                         if (m_tauler.jocAcabat()) 
                         {
-                            string guanyador = (m_tauler.getGuanyador() == COLOR_BLANC) ? "BLANQUES" : "NEGRES";
+                            string guanyador;
+                            if (m_tauler.getGuanyador() == COLOR_BLANC)
+                                guanyador = "BLANQUES";
+                            else
+                                guanyador = "NEGRES";
                             string mensageFinal = "FI DEL JOC - GUANYEN LES " + guanyador;
                             GraphicManager::getInstance()->drawFont(FONT_RED_30, POS_X_TAULER, POS_Y_TAULER + 700, 1.0, mensageFinal);
                             return true;

@@ -279,8 +279,17 @@ void Tauler::calcularCapturas(const Posicio& origen, const Posicio& desti, int& 
 	// Solo hay captura si el movimiento es de más de una casilla
 	if (abs(filaDesti - filaOrigen) > 1 || abs(colDesti - colOrigen) > 1)
 	{
-		int dirFila = (filaDesti > filaOrigen) ? 1 : -1;
-		int dirCol = (colDesti > colOrigen) ? 1 : -1;
+		int dirFila;
+		if (filaDesti > filaOrigen)
+			dirFila = 1;
+		else
+			dirFila = -1;
+
+		int dirCol;
+		if (colDesti > colOrigen)
+			dirCol = 1;
+		else
+			dirCol = -1;
 
 		int filaActual = filaOrigen + dirFila;
 		int colActual = colOrigen + dirCol;
@@ -288,8 +297,7 @@ void Tauler::calcularCapturas(const Posicio& origen, const Posicio& desti, int& 
 		while (filaActual != filaDesti || colActual != colDesti)
 		{
 			// Verificar si hay una ficha enemiga en esta posición
-			if (m_tauler[filaActual][colActual].getTipus() != TIPUS_EMPTY &&
-				m_tauler[filaActual][colActual].getColor() != m_tauler[filaOrigen][colOrigen].getColor())
+			if (m_tauler[filaActual][colActual].getTipus() != TIPUS_EMPTY && m_tauler[filaActual][colActual].getColor() != m_tauler[filaOrigen][colOrigen].getColor())
 			{
 				captures++;
 				if (m_tauler[filaActual][colActual].getTipus() == TIPUS_DAMA)
@@ -400,7 +408,11 @@ void Tauler::getPosicionsPossibles(const Posicio& origen, int& nPosicions, Posic
 	int movs[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
 	if (fitxa.getTipus() == TIPUS_NORMAL) {
-		int dir = (fitxa.getColor() == COLOR_BLANC) ? -1 : 1;
+		int dir;
+		if (fitxa.getColor() == COLOR_BLANC)
+			dir = -1;
+		else
+			dir = 1;
 		for (int i = 0; i < 2; i++) {
 			int newFila = fila + dir;
 			int newCol = col + movs[i][1];
