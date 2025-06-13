@@ -48,9 +48,6 @@ bool Joc::mostrarMenuInici(int mousePosX, int mousePosY, bool mouseStatus)
     return false;
 }
 
-
-//la funcion ya esta medio hecha, pero tendre que esperar a unirlo para saber si funciona o tengo q hacer cambios
-
 void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string& nomFitxerMoviments)
 {
 	m_tauler.inicialitza(nomFitxerTauler);
