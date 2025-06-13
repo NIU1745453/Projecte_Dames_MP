@@ -77,8 +77,6 @@ void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string&
  
 }
 
-//tengo q implementar funciones aux a la classe Tauler
-
 bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus) 
 {
     // Dibujar el fondo y el tablero vacío
@@ -107,7 +105,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
                 // Mover la ficha y actualizar el tablero
                 m_tauler.mouFitxa(origen, desti);
-
+                m_tauler.canviaTorn();
                 // Eliminar los movimientos procesados
                 m_movPendents.erase(m_movPendents.begin(), m_movPendents.begin() + 2);
 
@@ -182,7 +180,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                     // Mover la ficha y guardar el movimiento en el archivo
                     if (m_tauler.mouFitxa(m_posSeleccionada, posClicada)) 
                     {
-
+                        m_tauler.canviaTorn();
                         ofstream fitxer(m_fitxerMov);
                         if (fitxer.is_open()) 
                         {
@@ -198,6 +196,9 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                             GraphicManager::getInstance()->drawFont(FONT_RED_30, POS_X_TAULER, POS_Y_TAULER + 700, 1.0, mensageFinal);
                             return true;
                         }
+
+                        GraphicManager::getInstance()->drawSprite(GRAFIC_TAULER, POS_X_TAULER, POS_Y_TAULER);
+                        m_tauler.visualitza();
                     }
                 }
 

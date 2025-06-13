@@ -24,6 +24,7 @@ public:
 				m_tauler[i][j] = fit;
 			}
 		}
+		m_tornActual = COLOR_BLANC;
 	}
 	void setNPosicions(int nPos) { m_nPosicions = nPos; }
 	int getNPosicions() { return m_nPosicions; }
@@ -39,6 +40,7 @@ public:
 	bool jocAcabat() const;
 	ColorFitxa getGuanyador() const;
 	ColorFitxa getTorn() const;
+	void canviaTorn();
 	void visualitza() const;
 
 	void calcularCapturas(const Posicio& origen, const Posicio& desti, int& captures, int& damesCapturades);
@@ -98,6 +100,7 @@ private:
 	Fitxa m_tauler[N_FILES][N_COLUMNES];
 	int m_nPosicions;
 	Posicio m_posicionsPossibles[MAX_MOVIMENTS];
+	ColorFitxa m_tornActual;
 };
 
 //void escriuTauler(const string& nomFitxer, char tauler[N_FILES][N_COLUMNES]);
