@@ -1,35 +1,4 @@
-﻿  debug.cpp
-  image_png.cpp
-  keyboard.cpp
-  mouse.cpp
-  NFont.cpp
-  SDL_FontCache.cpp
-  sound.cpp
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(138,23): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(205,25): warning C4309: '=': truncamiento de valor constante
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(216,25): warning C4309: '=': truncamiento de valor constante
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(570,17): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(571,21): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(607,33): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Graphic Lib\NFont\SDL_FontCache.cpp(2654,17): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
-  sprites.cpp
-  stb_vorbis.cpp
-  video.cpp
-  Fitxa.cpp
-  GraphicManager.cpp
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\GraphicManager.cpp(29,37): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\GraphicManager.cpp(29,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-  joc.cpp
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(96,97): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(130,97): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(219,88): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(219,82): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(226,94): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-  main.cpp
-  Moviment.cpp
-  Posicio.cpp
-  Tauler.cpp
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(265,61): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(265,55): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-  Generando código...
+﻿  Tauler.cpp
+C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(266,61): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\emmaa\Desktop\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(266,55): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 LINK : fatal error LNK1104: no se puede abrir el archivo 'SDL2.lib'

@@ -125,6 +125,7 @@ void Tauler::actualitzaMovimentsValids()
 				}
 
 				m_tauler[fila][col].setMovimentsValids(movValids, nValids);
+				m_tauler[fila][col].setnValidas(nValids);//para saber el largo del array
 			}
 		}
 	}
