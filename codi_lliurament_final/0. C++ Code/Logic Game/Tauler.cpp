@@ -795,7 +795,7 @@ bool Tauler::mouFitxa(const Posicio& origen, const Posicio& desti)
 
 			if (best)//el movimiento que hace la fitxa si el moviemirnto es el mejor posible
 			{
-				if ((desti.getFila() == 8 && color == COLOR_BLANC) || (desti.getFila() == 1 && color == COLOR_NEGRE))
+				if ((desti.getFila() == 7 && color == COLOR_BLANC) || (desti.getFila() == 0 && color == COLOR_NEGRE))
 				{
 					m_tauler[desti.getFila()][desti.getColumna()] = Fitxa(TIPUS_DAMA, m_tauler[origen.getFila()][origen.getColumna()].getColor(), desti.getColumna(), desti.getFila());
 					m_tauler[origen.getFila()][origen.getColumna()] = Fitxa();
