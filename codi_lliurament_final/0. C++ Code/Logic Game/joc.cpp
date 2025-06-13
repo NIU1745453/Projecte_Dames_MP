@@ -11,7 +11,7 @@
 #include "GraphicManager.h"
 
 // Función para mostrar el menú de inicio y detectar clics
-bool Joc::mostrarMenuInici(int mousePosX, int mousePosY, bool mouseStatus) 
+bool Joc::mostrarMenuInici(int mousePosX, int mousePosY, bool mouseStatus)
 {
     GraphicManager::getInstance()->drawSprite(GRAFIC_PANTALLA_INICI, 0, 0);
 
@@ -22,17 +22,20 @@ bool Joc::mostrarMenuInici(int mousePosX, int mousePosY, bool mouseStatus)
 
     bool mouseJustPressed = (mouseStatus && !m_mouseStatusPrev);
 
-    if (mouseJustPressed) 
+    if (mouseJustPressed)
     {
-        if (mousePosX >= newGameX1 && mousePosX <= newGameX2 && mousePosY >= newGameY1 && mousePosY <= newGameY2) 
+        if (mousePosX >= newGameX1 && mousePosX <= newGameX2 && mousePosY >= newGameY1 && mousePosY <= newGameY2)
         {
+            // Iniciar nueva partida en modo NORMAL
             m_mode = MODE_JOC_NORMAL;
             m_enMenuInici = false;
             inicialitza(m_mode, "data/Games/tauler_inicial.txt", "data/Games/moviments.txt");
+            ofstream fitxer(m_fitxerMov, ios::trunc);  // ios::trunc borra el contenido existente, encontrado en c++.com
             return true;
         }
-        else if (mousePosX >= replayX1 && mousePosX <= replayX2 && mousePosY >= replayY1 && mousePosY <= replayY2) 
+        else if (mousePosX >= replayX1 && mousePosX <= replayX2 && mousePosY >= replayY1 && mousePosY <= replayY2)
         {
+            // Iniciar nueva partida en modo REPLAY
             m_mode = MODE_JOC_REPLAY;
             m_enMenuInici = false;
             inicialitza(m_mode, "data/Games/tauler_inicial.txt", "data/Games/moviments.txt");
@@ -260,18 +263,21 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
 void Joc::finalitza()
 {
-    // Solo guardamos movimientos si estamos en modo normal y hay movimientos pendientes
-    if (m_mode == MODE_JOC_NORMAL && !m_movPendents.empty())
+    // Solo guardamos movimientos si estamos en modo normal
+    if (m_mode == MODE_JOC_NORMAL)
     {
-        ofstream fitxer(m_fitxerMov);
-
+        ofstream fitxer(m_fitxerMov, ios::app);
         if (fitxer.is_open())
         {
-            // Guardamos los movimientos en pares (origen, destino)
-            for (int i = 0; i < m_movPendents.size(); i += 2)
+            // Si hay movimientos pendientes, los guardamos
+            if (!m_movPendents.empty())
             {
-                if (i + 1 < m_movPendents.size()) // Aseguramos que tenemos par completo
-                    fitxer << m_movPendents[i].toString() << " " << m_movPendents[i + 1].toString() << endl;
+                // Guardamos los movimientos en pares (origen, destino)
+                for (int i = 0; i < m_movPendents.size(); i += 2)
+                {
+                    if (i + 1 < m_movPendents.size()) // Aseguramos que tenemos par completo
+                        fitxer << m_movPendents[i].toString() << " " << m_movPendents[i + 1].toString() << endl;
+                }
             }
             fitxer.close();
         }
