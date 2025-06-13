@@ -89,30 +89,36 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     // Detectar si el botón del ratón acaba de ser presionado (evita múltiples activaciones)
     bool mouseJustPressed = (mouseStatus && !m_mouseStatusPrev);
 
-    if (m_mode == MODE_JOC_REPLAY) 
+    if (m_mode == MODE_JOC_REPLAY)
     {
         // --- MODO REPLAY ---
         string modoJuego = "Mode: REPLAY";
         GraphicManager::getInstance()->drawFont(FONT_WHITE_30, POS_X_TAULER, POS_Y_TAULER - 30, 0.8, modoJuego);
 
-        if (mouseJustPressed && !m_movPendents.empty()) 
+        if (mouseJustPressed && !m_movPendents.empty())
         {
             // Procesar un movimiento completo (origen y destino) por clic
-            if (m_movPendents.size() >= 2) 
+            if (m_movPendents.size() >= 2)
             {
                 Posicio origen = m_movPendents[0];
                 Posicio desti = m_movPendents[1];
 
+                // Mostrar información del movimiento actual
+                string movimentInfo = "Moviment: " + origen.toString() + " -> " + desti.toString();
+                GraphicManager::getInstance()->drawFont(FONT_WHITE_30, POS_X_TAULER, POS_Y_TAULER + 650, 0.8, movimentInfo);
+
                 // Mover la ficha y actualizar el tablero
+                m_tauler.actualitzaMovimentsValids();
                 m_tauler.mouFitxa(origen, desti);
                 m_tauler.canviaTorn();
+
                 // Eliminar los movimientos procesados
-                m_movPendents.erase(m_movPendents.begin(), m_movPendents.begin() + 1);
+                m_movPendents.erase(m_movPendents.begin(), m_movPendents.begin() + 2);
 
                 // Comprobar si el juego ha terminado
-                if (m_tauler.jocAcabat()) 
+                if (m_tauler.jocAcabat())
                 {
-                    string guanyador; 
+                    string guanyador;
                     if (m_tauler.getGuanyador() == COLOR_BLANC)
                         guanyador = "BLANQUES";
                     else
@@ -122,14 +128,17 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                     return true; // Indica que el juego ha terminado
                 }
 
+                // Redibujar el tablero después del movimiento
                 GraphicManager::getInstance()->drawSprite(GRAFIC_TAULER, POS_X_TAULER, POS_Y_TAULER);
                 m_tauler.visualitza();
             }
         }
-        else if (m_movPendents.empty()) 
+        else if (m_movPendents.empty())
+        {
             GraphicManager::getInstance()->drawFont(FONT_RED_30, POS_X_TAULER, POS_Y_TAULER + 700, 1.0, "No queden més moviments per reproduir");
+        }
     }
-    else if (m_mode == MODE_JOC_NORMAL) 
+    else if (m_mode == MODE_JOC_NORMAL)
     {
         // --- MODO NORMAL ---
         string modoJuego = "Mode: NORMAL - Torn: ";
