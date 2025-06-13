@@ -177,6 +177,7 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
                 if (movimentValid) 
                 {
+                    m_tauler.actualitzaMovimentsValids();
                     // Mover la ficha y guardar el movimiento en el archivo
                     if (m_tauler.mouFitxa(m_posSeleccionada, posClicada)) 
                     {

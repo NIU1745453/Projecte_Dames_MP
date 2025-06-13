@@ -1,15 +1,4 @@
 ﻿  Tauler.cpp
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(265,61): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(265,55): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-  joc.cpp
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(96,97): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(130,97): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(169,35): warning C4018: '<': no coinciden signed/unsigned
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(219,88): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(219,82): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(226,94): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(246,31): warning C4018: '<': no coinciden signed/unsigned
-C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\joc.cpp(248,27): warning C4018: '<': no coinciden signed/unsigned
-  main.cpp
-  Generando código...
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(266,61): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\0. C++ Code\Logic Game\Tauler.cpp(266,55): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
   MP_Practica.vcxproj -> C:\Users\daria\Documents\GitHub\Projecte_Dames_MP\codi_lliurament_final\2. Platforms\0. Windows Desktop\Program\MP_Practica.exe
